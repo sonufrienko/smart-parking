@@ -1,1 +1,17 @@
-{}
+{
+	"auth": {
+		"smartparkingd67f4dd0": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"api": {
+		"parking": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "AMAZON_COGNITO_USER_POOLS"
+			}
+		}
+	}
+}

@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "parking",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authsmartparkingd67f4dd0",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
