@@ -1,5 +1,10 @@
-type Todo @model {
-  id: ID!
-  name: String!
-  description: String
+type Query {
+  listSlots: [Slot] @function(name: "listSlots-${env}")
+}
+
+type Slot {
+  Id: ID!
+  Device: Int
+  SlotNumber: String
+  SlotStatus: Int
 }

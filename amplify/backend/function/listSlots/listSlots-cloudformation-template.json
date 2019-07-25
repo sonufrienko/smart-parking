@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "smart-parking-dev-20190724110231-deployment",
-					"S3Key": "amplify-builds/listSlots-5869576e4f7472683656-build.zip"
+					"S3Key": "amplify-builds/listSlots-2f64684f324c436c4f78-build.zip"
 				}
 			}
 		},
