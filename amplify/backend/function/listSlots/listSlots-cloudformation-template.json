@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "smart-parking-dev-20190724110231-deployment",
-					"S3Key": "amplify-builds/listSlots-2f64684f324c436c4f78-build.zip"
+					"S3Key": "amplify-builds/listSlots-47347a4a6e506c734345-build.zip"
 				}
 			}
 		},
@@ -144,6 +144,51 @@
 									}
 								]
 							}
+						},
+						{
+							"Effect": "Allow",
+							"Action": [
+								"dynamodb:ListTables",
+								"dynamodb:DeleteItem",
+								"dynamodb:RestoreTableToPointInTime",
+								"dynamodb:PurchaseReservedCapacityOfferings",
+								"dynamodb:ListTagsOfResource",
+								"dynamodb:UpdateGlobalTable",
+								"dynamodb:CreateBackup",
+								"dynamodb:DeleteTable",
+								"dynamodb:UpdateContinuousBackups",
+								"dynamodb:DescribeReservedCapacityOfferings",
+								"dynamodb:DescribeTable",
+								"dynamodb:GetItem",
+								"dynamodb:DescribeContinuousBackups",
+								"dynamodb:CreateGlobalTable",
+								"dynamodb:DescribeLimits",
+								"dynamodb:BatchGetItem",
+								"dynamodb:UpdateTimeToLive",
+								"dynamodb:BatchWriteItem",
+								"dynamodb:ConditionCheckItem",
+								"dynamodb:PutItem",
+								"dynamodb:ListBackups",
+								"dynamodb:Scan",
+								"dynamodb:Query",
+								"dynamodb:DescribeStream",
+								"dynamodb:UpdateItem",
+								"dynamodb:DescribeTimeToLive",
+								"dynamodb:ListStreams",
+								"dynamodb:CreateTable",
+								"dynamodb:UpdateGlobalTableSettings",
+								"dynamodb:DescribeGlobalTableSettings",
+								"dynamodb:ListGlobalTables",
+								"dynamodb:GetShardIterator",
+								"dynamodb:DescribeGlobalTable",
+								"dynamodb:DescribeReservedCapacity",
+								"dynamodb:RestoreTableFromBackup",
+								"dynamodb:DescribeBackup",
+								"dynamodb:DeleteBackup",
+								"dynamodb:UpdateTable",
+								"dynamodb:GetRecords"
+							],
+							"Resource": "*"
 						}
 					]
 				}

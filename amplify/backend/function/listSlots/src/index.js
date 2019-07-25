@@ -1,27 +1,40 @@
-const SLOTS = [{
-  Id: 'zw2d1_bvU1',
-  Device: 630,
-  SlotNumber: 'A50',
-  SlotStatus: 1
-}, {
-  Id: 'zw2d1_bvU2',
-  Device: 631,
-  SlotNumber: 'A51',
-  SlotStatus: 0
-}, {
-  Id: 'zw2d1_bvU3',
-  Device: 632,
-  SlotNumber: 'A52',
-  SlotStatus: 0
-}, {
-  Id: 'zw2d1_bvU4',
-  Device: 633,
-  SlotNumber: 'A53',
-  SlotStatus: 1
-}];
+const AWS = require('aws-sdk');
+AWS.config.update({ region: 'us-west-2' });
+const client = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
+const PARKING_TABLE = 'Parking';
+
+const getSlotNumber = slot => Number(slot.SlotNumber.slice(1));
+
+const sortBySlotNumber = (a, b) =>
+  getSlotNumber(a) > getSlotNumber(b) ? 1 : getSlotNumber(b) > getSlotNumber(a) ? -1 : 0;
+
+const getSlotProps = slot => ({
+  Id: slot.PK,
+  Device: slot.Device,
+  SlotNumber: slot.SlotNumber,
+  SlotStatus: slot.SlotStatus
+});
 
 exports.handler = (event, context) => {
   const { typeName, fieldName, arguments: args, identity } = event;
-  console.log(`typeName: ${typeName}, fieldName: ${fieldName}, args: ${JSON.stringify(args)}, identity: ${JSON.stringify(identity)}`);
-  context.done(null, SLOTS);
+
+  const params = {
+    TableName: PARKING_TABLE,
+    IndexName: 'SKIndex',
+    KeyConditionExpression: 'SK = :sk',
+    ExpressionAttributeValues: { ':sk': 'slot' },
+    Limit: 1000
+  };
+
+  client
+    .query(params)
+    .promise()
+    .then(({ Items }) => {
+      const slots = Items.sort(sortBySlotNumber).map(getSlotProps);
+      context.done(null, slots);
+    })
+    .catch(err => {
+      console.log(err);
+      context.done(err, null);
+    });
 };
