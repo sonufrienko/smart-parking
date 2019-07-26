@@ -40,6 +40,18 @@ const getByDevice = ({ device }) => {
   return client.query(params).promise();
 };
 
+const getByPK = ({ slotPK }) => {
+  const params = {
+    TableName : PARKING_TABLE,
+    Key: {
+      PK: slotPK,
+      SK: 'slot'
+    }
+  };
+
+  return client.get(params).promise();
+};
+
 const updateSlotStatus = ({ slotPK, slotStatus }) => {
   const params = {
     TableName: PARKING_TABLE,
@@ -65,10 +77,12 @@ const setStatus = async ({ device, slotStatus }) => {
   const [{ PK: slotPK }] = Items;
 
   await updateSlotStatus({ slotPK, slotStatus });
+  return await getByPK({ slotPK });
 };
 
 module.exports = {
   getAll,
   setStatus,
-  getBySlotNumber
+  getBySlotNumber,
+  getByPK
 };
