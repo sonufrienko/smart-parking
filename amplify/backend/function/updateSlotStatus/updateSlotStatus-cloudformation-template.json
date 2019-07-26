@@ -61,7 +61,7 @@
 				},
 				"Runtime": "nodejs10.x",
 				"Layers": [
-					"arn:aws:lambda:us-west-2:707901487254:layer:shared:3"
+					"arn:aws:lambda:us-west-2:707901487254:layer:shared:4"
 				],
 				"Timeout": "25",
 				"Code": {
