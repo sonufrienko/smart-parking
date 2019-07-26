@@ -2,9 +2,18 @@ type Query {
   listSlots: [Slot] @function(name: "listSlots-${env}")
 }
 
+type Mutation {
+  updateSlotStatus(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlotStatus-${env}")
+}
+
 type Slot {
   Id: ID!
   Device: Int
   SlotNumber: String
   SlotStatus: Int
+}
+
+input UpdateSlotStatusInput {
+  Device: Int!
+  SlotStatus: Int!
 }
