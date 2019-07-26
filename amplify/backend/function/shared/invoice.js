@@ -46,7 +46,7 @@ const startParking = async ({ slotNumber, userID, plateNumber }) => {
     Items: [{ PK: slotPK }]
   } = await slotService.getBySlotNumber({ slotNumber });
   const invoiceID = await createInvoice({ slotPK, userID, plateNumber });
-  return invoiceID;
+  return await getInvoice({ invoiceID, userID });
 };
 
 const getInvoice = ({ invoiceID, userID }) => {
@@ -85,17 +85,9 @@ const finishParking = async ({ invoiceID, userID }) => {
   const dateTo = Date.now();
   const parkingTimeInMin = getParkingTime({ dateFrom, dateTo });
   const price = getParkingPrice({ parkingTimeInMin, pricePerMinute: RATE_MINUTE });
-  const minutes = `${parkingTimeInMin.toFixed(0)} min.`;
 
   await updateInvoice({ PK, SK, dateTo, price });
-
-  return {
-    InvoiceID: invoice.SK,
-    DateFrom: dateFrom,
-    DateTo: dateTo,
-    Duration: minutes,
-    Price: price
-  };
+  return await getInvoice({ invoiceID, userID });
 };
 
 module.exports = {
