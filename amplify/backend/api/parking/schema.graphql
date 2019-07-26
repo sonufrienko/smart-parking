@@ -5,6 +5,7 @@ type Query {
 type Mutation {
   updateSlotStatus(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlotStatus-${env}")
   startParking(input: StartParkingInput!): Invoice @function(name: "startParking-${env}")
+  finishParking(input: FinishParkingInput!): Invoice @function(name: "finishParking-${env}")
 }
 
 type Slot {
@@ -32,4 +33,9 @@ input StartParkingInput {
   UserID: String!
   PlateNumber: String!
   SlotNumber: String!
+}
+
+input FinishParkingInput {
+  UserID: String!
+  InvoiceID: String!
 }
