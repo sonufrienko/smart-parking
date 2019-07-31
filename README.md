@@ -3,8 +3,27 @@ Cloud and dashboard for real-time visualization of parking slots.
 
 ## Architecture
 
+Cloud
+- AWS Amplify
+- AWS AppSync
+- AWS Cognito
+- DynamoDB
+- Lambda
+- S3
+
+Web app
+- React
+- TypeScript
+- GraphQL
+- Amplify
+
+Mobile app
+- React Native
 
 ## Features
+
+- Show parking slots with it's status
+- Update slot status in real-time
 
 
 ## Requirements
