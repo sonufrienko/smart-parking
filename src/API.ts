@@ -72,3 +72,13 @@ export type ListSlotsQuery = {
     SlotStatus: number | null,
   } | null > | null,
 };
+
+export type OnUpdateSlotStatusSubscription = {
+  onUpdateSlotStatus:  {
+    __typename: "Slot",
+    Id: string,
+    Device: number | null,
+    SlotNumber: string | null,
+    SlotStatus: number | null,
+  } | null,
+};
