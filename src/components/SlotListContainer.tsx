@@ -3,6 +3,7 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
+import * as subscriptions from '../graphql/subscriptions';
 import { ListSlotsResponse } from '../types';
 import { useStateValue } from '../state';
 import SlotsList from './SlotList';
@@ -25,8 +26,19 @@ function SlotsContainer() {
       fetchData();
     }
 
+    let subscriptionToUpdates;
+
+    if (!subscriptionToUpdates) {
+      subscriptionToUpdates = subscribeToUpdates();
+    }
+
     if (items) {
       document.title = `Free slots: ${items.filter(item => !!!item.SlotStatus).length}`;
+    }
+
+    return () => {
+      // Cleanup on component unmount
+      subscriptionToUpdates.unsubscribe();
     }
   });
 
@@ -41,6 +53,20 @@ function SlotsContainer() {
         type: 'SLOTS_FETCH_END',
         payload: listSlots
       });
+    });
+  }
+
+  function subscribeToUpdates() {
+    return API.graphql(
+      graphqlOperation(subscriptions.onUpdateSlotStatus)
+    ).subscribe({
+      next: (slotData) => {
+        const { value: { data: { onUpdateSlotStatus } } } = slotData;
+        dispatch({
+          type: 'SLOT_STATUS_CHANGED',
+          payload: onUpdateSlotStatus
+        });
+      }
     });
   }
 

@@ -14,6 +14,20 @@ const slotsReducer = (slots: SlotsState, action: Action) => {
         items: action.payload
       };
 
+    case 'SLOT_STATUS_CHANGED':
+      const newItem = action.payload;
+      const { items } = slots;
+      const updatedItems = [...(items || []).map(item => item.Id === newItem.Id ? ({
+          ...item,
+          SlotStatus: newItem.SlotStatus
+        }) : item
+      )];
+
+      return {
+        loading: false,
+        items: updatedItems
+      };
+
     default:
       return slots;
   }
