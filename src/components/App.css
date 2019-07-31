@@ -1,0 +1,57 @@
+html {
+  background-color: #282c34;
+}
+
+.App {
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 20px;
+}
+
+a {
+  color: #61dafb;
+}
+
+.slots {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.slots .slot-item {
+  width: 60px;
+  height: 80px;
+  margin: 1% 6px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.6em;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  background-color: green;
+  transition: background-color 1.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: brown;
+}
+
+.item-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
