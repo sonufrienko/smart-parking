@@ -7,7 +7,7 @@ export interface StateInterface {
 
 export interface SlotsState {
   loading: boolean,
-  items: SlotsState[] | null
+  items: SlotState[] | null
 }
 
 export interface SlotState {
