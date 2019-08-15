@@ -24,9 +24,10 @@ type Slot {
 type Invoice {
   Id: ID!
   UserID: String
+  SlotID: String
   PlateNumber: String
-  DateFrom: Int
-  DateTo: Int
+  DateFrom: String
+  DateTo: String
   Price: Float
 }
 
