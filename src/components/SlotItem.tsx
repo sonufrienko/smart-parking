@@ -1,17 +1,27 @@
 import React, { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
-import { SlotState } from '../types';
+import { SlotState, InvoiceState } from '../types';
 
-function SlotItem({ item, showDetails }: {
-  item: SlotState, showDetails(item: SlotState): void
+function SlotItem({ item, invoice, showDetails }: {
+  item: SlotState, 
+  invoice: InvoiceState | null,
+  showDetails(item: SlotState): void
 }) {
   const { Id, Device, SlotNumber, SlotStatus } = item;
-  const divStyle = useSpring({ height: SlotStatus ? 80 : 0 });
+  const divStyle = useSpring({ height: SlotStatus ? 120 : 0 });
+  const plateNumber = invoice && invoice.PlateNumber !== '' ? (
+    <div className="plate-number">
+      {invoice.PlateNumber}
+    </div>
+  ) : null;
 
   return (
     <div onClick={() => showDetails(item)} className={`slot-item ${SlotStatus ? 'unavailable' : ''}`} title={`Device: ${Device}`}>
       <animated.div className="item-fill" style={divStyle} />
-      <animated.div className="item-content">{SlotNumber}</animated.div>
+      <animated.div className="item-content">
+        {SlotNumber}
+        {plateNumber}
+      </animated.div>
     </div>
   );
 }

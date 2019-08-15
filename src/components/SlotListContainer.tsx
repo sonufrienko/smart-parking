@@ -16,7 +16,8 @@ function SlotsContainer() {
       slots: {
         loading,
         items
-      }
+      },
+      invoices
     },
     dispatch
   ] = useStateValue();
@@ -27,9 +28,19 @@ function SlotsContainer() {
     }
 
     let subscriptionToUpdates;
+    let subscriptionToStartParking;
+    let subscriptionToFinishParking;
 
     if (!subscriptionToUpdates) {
       subscriptionToUpdates = subscribeToUpdates();
+    }
+
+    if (!subscriptionToStartParking) {
+      subscriptionToStartParking = subscribeToStartParking();
+    }
+
+    if (!subscriptionToFinishParking) {
+      subscriptionToFinishParking = subscribeToFinishParking();
     }
 
     if (items) {
@@ -39,6 +50,8 @@ function SlotsContainer() {
     return () => {
       // Cleanup on component unmount
       subscriptionToUpdates.unsubscribe();
+      subscriptionToStartParking.unsubscribe();
+      subscriptionToFinishParking.unsubscribe();
     }
   });
 
@@ -70,6 +83,34 @@ function SlotsContainer() {
     });
   }
 
+  function subscribeToStartParking() {
+    return API.graphql(
+      graphqlOperation(subscriptions.onStartParking)
+    ).subscribe({
+      next: (response) => {
+        const { value: { data: { onStartParking } } } = response;
+        dispatch({
+          type: 'START_PARKING',
+          payload: onStartParking
+        });
+      }
+    });
+  }
+
+  function subscribeToFinishParking() {
+    return API.graphql(
+      graphqlOperation(subscriptions.onFinishParking)
+    ).subscribe({
+      next: (response) => {
+        const { value: { data: { onFinishParking } } } = response;
+        dispatch({
+          type: 'FINISH_PARKING',
+          payload: onFinishParking
+        });
+      }
+    });
+  }
+
   function showDetails(slot) {
     // TODO
   }
@@ -78,7 +119,8 @@ function SlotsContainer() {
     <React.Fragment>
       <SlotsList 
         title="Amsterdam Central Parking" 
-        items={items} 
+        items={items}
+        invoices={invoices}
         loading={loading} 
         showDetails={showDetails} 
       />
