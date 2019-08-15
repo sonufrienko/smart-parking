@@ -8,6 +8,12 @@ type Mutation {
   finishParking(input: FinishParkingInput!): Invoice @function(name: "finishParking-${env}")
 }
 
+type Subscription {
+	onUpdateSlotStatus: Slot @aws_subscribe(mutations: ["updateSlotStatus"])
+  onStartParking: Invoice @aws_subscribe(mutations: ["startParking"])
+  onFinishParking: Invoice @aws_subscribe(mutations: ["finishParking"])
+}
+
 type Slot {
   Id: ID!
   Device: Int
