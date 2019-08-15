@@ -6,7 +6,8 @@ const initialState: StateInterface = {
   slots: {
     loading: false,
     items: null
-  }
+  },
+  invoices: new Map()
 };
 
 export const StateContext = createContext([] as any[]);

@@ -2,7 +2,20 @@ import * as api from '../API';
 export * from '../API';
 
 export interface StateInterface {
-  slots: SlotsState
+  slots: SlotsState,
+  invoices: InvoicesState
+}
+
+export type InvoicesState = Map<string, InvoiceState>;
+
+export interface InvoiceState {
+  Id: string,
+  UserID: string,
+  SlotID: string,
+  PlateNumber: string,
+  DateFrom:string,
+  DateTo: string,
+  Price: number
 }
 
 export interface SlotsState {
