@@ -10,3 +10,27 @@ export const onUpdateSlotStatus = `subscription OnUpdateSlotStatus {
   }
 }
 `;
+export const onStartParking = `subscription OnStartParking {
+  onStartParking {
+    Id
+    UserID
+    SlotID
+    PlateNumber
+    DateFrom
+    DateTo
+    Price
+  }
+}
+`;
+export const onFinishParking = `subscription OnFinishParking {
+  onFinishParking {
+    Id
+    UserID
+    SlotID
+    PlateNumber
+    DateFrom
+    DateTo
+    Price
+  }
+}
+`;

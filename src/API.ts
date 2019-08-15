@@ -40,9 +40,10 @@ export type StartParkingMutation = {
     __typename: "Invoice",
     Id: string,
     UserID: string | null,
+    SlotID: string | null,
     PlateNumber: string | null,
-    DateFrom: number | null,
-    DateTo: number | null,
+    DateFrom: string | null,
+    DateTo: string | null,
     Price: number | null,
   } | null,
 };
@@ -56,9 +57,10 @@ export type FinishParkingMutation = {
     __typename: "Invoice",
     Id: string,
     UserID: string | null,
+    SlotID: string | null,
     PlateNumber: string | null,
-    DateFrom: number | null,
-    DateTo: number | null,
+    DateFrom: string | null,
+    DateTo: string | null,
     Price: number | null,
   } | null,
 };
@@ -80,5 +82,31 @@ export type OnUpdateSlotStatusSubscription = {
     Device: number | null,
     SlotNumber: string | null,
     SlotStatus: number | null,
+  } | null,
+};
+
+export type OnStartParkingSubscription = {
+  onStartParking:  {
+    __typename: "Invoice",
+    Id: string,
+    UserID: string | null,
+    SlotID: string | null,
+    PlateNumber: string | null,
+    DateFrom: string | null,
+    DateTo: string | null,
+    Price: number | null,
+  } | null,
+};
+
+export type OnFinishParkingSubscription = {
+  onFinishParking:  {
+    __typename: "Invoice",
+    Id: string,
+    UserID: string | null,
+    SlotID: string | null,
+    PlateNumber: string | null,
+    DateFrom: string | null,
+    DateTo: string | null,
+    Price: number | null,
   } | null,
 };
