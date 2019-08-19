@@ -2,11 +2,11 @@ const slotService = require('./slot');
 const AWS = require('aws-sdk');
 const client = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 const PARKING_TABLE = 'Parking';
-const RATE_MINUTE = 0.0833;
+const RATE_HOUR = 5;
 
-const getParkingPrice = ({ parkingTimeInMin, pricePerMinute }) => (parkingTimeInMin * pricePerMinute).toFixed(2);
+const getParkingPrice = ({ durationInHours, rate }) => (durationInHours * rate).toFixed(2);
 
-const getParkingTime = ({ dateFrom, dateTo }) => (dateTo - dateFrom) / 1000 / 60;
+const getParkingDurationInHours = ({ dateFrom, dateTo }) => Math.ceil((dateTo - dateFrom) / 1000 / 60 / 60);
 
 const getLastBySlotPK = ({ slotPK, limit = 10 }) => {
   const params = {
@@ -46,7 +46,9 @@ const startParking = async ({ slotNumber, userID, plateNumber }) => {
     Items: [{ PK: slotPK }]
   } = await slotService.getBySlotNumber({ slotNumber });
   const invoiceID = await createInvoice({ slotPK, userID, plateNumber });
-  return await getInvoice({ invoiceID, userID });
+  const { Items: [invoice] } = await getInvoice({ invoiceID, userID });
+  invoice.SlotID = slotPK;
+  return invoice;
 };
 
 const getInvoice = ({ invoiceID, userID }) => {
@@ -83,11 +85,13 @@ const finishParking = async ({ invoiceID, userID }) => {
   const { PK, SK, DateFrom: dateFrom } = invoice;
 
   const dateTo = Date.now();
-  const parkingTimeInMin = getParkingTime({ dateFrom, dateTo });
-  const price = getParkingPrice({ parkingTimeInMin, pricePerMinute: RATE_MINUTE });
+  const durationInHours = getParkingDurationInHours({ dateFrom, dateTo });
+  const price = getParkingPrice({ durationInHours, rate: RATE_HOUR });
 
   await updateInvoice({ PK, SK, dateTo, price });
-  return await getInvoice({ invoiceID, userID });
+  const { Items: [updatedInvoice] } = await getInvoice({ invoiceID, userID });
+  updatedInvoice.SlotID = PK;
+  return updatedInvoice;
 };
 
 module.exports = {
