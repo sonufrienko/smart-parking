@@ -1,16 +1,17 @@
 const { invoiceService } = require('/opt/shared');
 
 const getInvoiceProps = item => ({
-  Id: item.SK,
+  Id: item.SK.replace('inv#', ''),
   UserID: item.UserID,
+  SlotID: item.SlotID,
   PlateNumber: item.PlateNumber,
-  DateFrom: item.DateFrom,
-  DateTo: item.DateTo,
+  DateFrom: String(item.DateFrom || ''),
+  DateTo: String(item.DateTo || ''),
   Price: item.Price
 });
 
 const startParking = async ({ UserID, PlateNumber, SlotNumber }) => {
-  const { Items: [invoice] } = await invoiceService.startParking({ slotNumber: SlotNumber, userID: UserID, plateNumber: PlateNumber });
+  const invoice = await invoiceService.startParking({ slotNumber: SlotNumber, userID: UserID, plateNumber: PlateNumber });
   return getInvoiceProps(invoice);
 };
 
