@@ -118,7 +118,7 @@ function SlotsContainer() {
   return (
     <React.Fragment>
       <SlotsList 
-        title="Amsterdam Central Parking" 
+        title="Amsterdam Central Parking NEW" 
         items={items}
         invoices={invoices}
         loading={loading} 
