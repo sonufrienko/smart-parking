@@ -1,4 +1,4 @@
-const { invoiceService } = require('/opt/shared');
+const { invoiceService } = require('shared');
 
 const getInvoiceProps = item => ({
   Id: item.SK.replace('inv#', ''),
