@@ -1,4 +1,4 @@
-const { slotService } = require('/opt/shared');
+const { slotService } = require('shared');
 
 const getSlotProps = item => ({
   Id: item.PK,
