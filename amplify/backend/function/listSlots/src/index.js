@@ -1,4 +1,4 @@
-const { slotService } = require('/opt/shared');
+const { slotService } = require('shared');
 
 const getSlotNumber = item => Number(item.SlotNumber.slice(1));
 
