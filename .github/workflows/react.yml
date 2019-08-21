@@ -20,6 +20,5 @@ jobs:
     - name: npm install, build, and test
       run: |
         npm install
-        touch src/aws-exports.js
         npm run build --if-present
         npm test
