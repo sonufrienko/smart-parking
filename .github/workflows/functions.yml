@@ -9,7 +9,7 @@ jobs:
     
     strategy:
       matrix:
-        function: [shared, listSlots, updateSlotStatus, startParking, finishParking]
+        function: [shared, listSlots/src, updateSlotStatus/src, startParking/src, finishParking/src]
 
     steps:
     - name: Checkout
