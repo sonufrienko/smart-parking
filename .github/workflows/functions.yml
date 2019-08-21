@@ -1,0 +1,26 @@
+name: Functions
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        function: [listSlots, updateSlotStatus, startParking, finishParking]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Use Node.js v10
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Change directory
+      run: cd amplify/backend/function/${{ matrix.function }}
+    - name: Install
+      run: npm install
+    - name: Test
+      run: npm test -- --forceExit --watchAll=false
