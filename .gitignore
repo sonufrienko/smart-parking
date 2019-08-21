@@ -93,3 +93,4 @@ build/
 dist/
 node_modules/
 awsconfiguration.json
+amplify/mock-data
