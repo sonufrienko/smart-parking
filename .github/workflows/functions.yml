@@ -9,7 +9,7 @@ jobs:
     
     strategy:
       matrix:
-        function: [listSlots, updateSlotStatus, startParking, finishParking]
+        function: [shared, listSlots, updateSlotStatus, startParking, finishParking]
 
     steps:
     - name: Checkout
@@ -18,7 +18,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
-    - name: Change directory
-      run: cd amplify/backend/function/${{ matrix.function }}; pwd
-    - name: PWD
-      run: pwd
+    - name: Install
+      run: |
+        cd amplify/backend/function/${{ matrix.function }};
+        npm install
+    - name: Test
+      run: |
+        cd amplify/backend/function/${{ matrix.function }};
+        npm test --if-present -- --forceExit --watchAll=false
