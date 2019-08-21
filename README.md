@@ -1,15 +1,22 @@
 # Smart Parking
-Cloud and dashboard for real-time visualization of parking slots.
+Cloud and Web dashboard for real-time visualization of parking slots.
 
-## Architecture
+[Demo](https://master.dgbzjrhjbwl3h.amplifyapp.com/)
+
+
+## Serverless Architecture
 
 Cloud
 - AWS Amplify
-- AWS AppSync
+- AWS AppSync (using multiple authorization types)
 - AWS Cognito
 - DynamoDB
 - Lambda
 - S3
+
+CI/CD
+- GitHub Actions (CI)
+- AWS Amplify Console (CD)
 
 Web app
 - React
@@ -22,14 +29,46 @@ Mobile app
 
 ## Features
 
-- Show parking slots with it's status
-- Update slot status in real-time
-
-
-## Requirements
+- Authorization (Amplify React component, AWS Cognito)
+- Show parking slots (GraphQL, AWS AppSync)
+- Update slot status in real-time (GraphQL subscriptions, AWS AppSync)
 
 
 ## Getting Started
+
+
+```sh
+#install project dependencies
+npm i
+
+# Install Amplify CLI globally
+npm install -g @aws-amplify/cli
+amplify configure
+
+# Create a AWS CloudFormation stack
+amplify init
+
+# Update the cloud resources (deployment)
+amplify push
+
+# Build and publish both the backend and the front end
+# Upload React app to the S3 hosting bucket
+amplify publish
+```
+
+Branches
+- `master` - Production branch (protected). Used by Amplify Console for Continuous Deployment.
+- `dev` - Development branch.
+
+
+Mocking and Testing
+```sh
+# Execute local Lambda function
+amplify mock function listSlots
+
+# Start GraphQL server
+amplify mock api
+```
 
 
 ## Scripts
