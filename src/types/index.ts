@@ -38,3 +38,8 @@ export interface Action {
 export interface ListSlotsResponse {
   data: api.ListSlotsQuery;
 }
+
+export interface Point {
+  x: number,
+  y: number
+}
