@@ -7,6 +7,7 @@ import * as subscriptions from '../graphql/subscriptions';
 import { ListSlotsResponse } from '../types';
 import { useStateValue } from '../state';
 import SlotsList from './SlotList';
+import GroundMap from './GroundMap';
 
 API.configure(awsconfig);
 
@@ -117,12 +118,12 @@ function SlotsContainer() {
 
   return (
     <React.Fragment>
-      <SlotsList 
+      <GroundMap 
         title="Amsterdam Central Parking NEW 2" 
         items={items}
         invoices={invoices}
-        loading={loading} 
-        showDetails={showDetails} 
+        loading={loading}
+        imageUrl="/images/groundmap.jpg"
       />
     </React.Fragment>
   );
