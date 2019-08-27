@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import React, { useEffect } from 'react';
+import { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import * as queries from '../graphql/queries';
-import * as mutations from '../graphql/mutations';
 import * as subscriptions from '../graphql/subscriptions';
 import { ListSlotsResponse } from '../types';
 import { useStateValue } from '../state';
-import SlotsList from './SlotList';
+// import SlotsList from './SlotList';
 import GroundMap from './GroundMap';
 
 API.configure(awsconfig);
@@ -110,10 +109,6 @@ function SlotsContainer() {
         });
       }
     });
-  }
-
-  function showDetails(slot) {
-    // TODO
   }
 
   return (
