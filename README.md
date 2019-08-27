@@ -63,6 +63,8 @@ Branches
 
 Mocking and Testing
 ```sh
+export AWS_REGION=us-west-2
+
 # Execute local Lambda function
 amplify mock function listSlots
 
