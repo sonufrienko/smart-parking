@@ -1,20 +1,13 @@
 html {
-  background-color: #282c34;
-}
-
-.App {
-  font-size: calc(10px + 2vmin);
-  color: white;
-  margin: 20px;
-}
-
-h1 {
-  font-weight: 200;
-  font-size: 25px;
+  background-color: #f5f5f5;
 }
 
 a {
-  color: #61dafb;
+  color: #1976d2;
+}
+
+canvas {
+  display: block;
 }
 
 .slots {
@@ -72,4 +65,10 @@ a {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+.box-center {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }

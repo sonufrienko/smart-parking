@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { SlotState, InvoicesState, Point } from '../types';
+import { Typography, LinearProgress } from '@material-ui/core';
 
 const CoordinatesOfSlots = new Map<string, Point[]>([
   ['A50', [{ x: 24, y: 508 }, { x: 90, y: 478 }, { x: 213, y: 535 }, { x: 154, y: 567 }]],
@@ -96,8 +97,9 @@ function GroundMap({ title, items, invoices, loading, imageUrl }: {
 
   return (
     <React.Fragment>
-      <h1>{title} { loading && <small>Loading...</small> }</h1>
       <canvas ref={canvasRef} />
+      { loading && <LinearProgress />}
+      <Typography style={{ marginTop: 14, marginBottom: 14, textAlign: 'center' }}>{title}</Typography>
     </React.Fragment>
   );
 }

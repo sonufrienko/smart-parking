@@ -114,7 +114,7 @@ function SlotsContainer() {
   return (
     <React.Fragment>
       <GroundMap 
-        title="Amsterdam Central Parking NEW 2" 
+        title="Amsterdam Central Parking" 
         items={items}
         invoices={invoices}
         loading={loading}
