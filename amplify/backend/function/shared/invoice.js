@@ -94,8 +94,20 @@ const finishParking = async ({ invoiceID, userID }) => {
   return updatedInvoice;
 };
 
+const listInvoices = async ({ userID }) => {
+  const params = {
+    TableName : PARKING_TABLE,
+    FilterExpression : 'UserID = :userID',
+    ExpressionAttributeValues : {':userID' : userID}
+  };
+  
+  const { Items: invoices } = await client.scan(params).promise();
+  return invoices;
+}
+
 module.exports = {
   startParking,
   finishParking,
-  getLastBySlotPK
+  getLastBySlotPK,
+  listInvoices
 };
