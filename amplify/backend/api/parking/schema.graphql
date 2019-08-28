@@ -1,5 +1,6 @@
 type Query {
   listSlots: [Slot] @function(name: "listSlots-${env}")
+  listInvoices: [Invoice] @function(name: "listInvoices-${env}")
 }
 
 type Mutation {

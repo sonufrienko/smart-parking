@@ -75,6 +75,19 @@ export type ListSlotsQuery = {
   } | null > | null,
 };
 
+export type ListInvoicesQuery = {
+  listInvoices:  Array< {
+    __typename: "Invoice",
+    Id: string,
+    UserID: string | null,
+    SlotID: string | null,
+    PlateNumber: string | null,
+    DateFrom: string | null,
+    DateTo: string | null,
+    Price: number | null,
+  } | null > | null,
+};
+
 export type OnUpdateSlotStatusSubscription = {
   onUpdateSlotStatus:  {
     __typename: "Slot",

@@ -10,3 +10,15 @@ export const listSlots = `query ListSlots {
   }
 }
 `;
+export const listInvoices = `query ListInvoices {
+  listInvoices {
+    Id
+    UserID
+    SlotID
+    PlateNumber
+    DateFrom
+    DateTo
+    Price
+  }
+}
+`;
