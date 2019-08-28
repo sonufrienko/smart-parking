@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: 10.x
     - name: Install
-      run: npm install
+      run: npm install; echo "export default {};" > src/aws-exports.js
     - name: Build
       run: npm run build
     - name: Test
