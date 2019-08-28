@@ -38,12 +38,14 @@ Mobile app
 
 
 ```sh
-#install project dependencies
-npm i
-
 # Install Amplify CLI globally
 npm install -g @aws-amplify/cli
 amplify configure
+
+# Install project and dependencies
+git clone https://github.com/sonufrienko/smart-parking
+cd smart-parking
+npm i
 
 # Create a AWS CloudFormation stack
 amplify init
@@ -54,6 +56,13 @@ amplify push
 # Build and publish both the backend and the front end
 # Upload React app to the S3 hosting bucket
 amplify publish
+```
+
+Generate aws-exports.js
+```sh
+amplify init
+# ? Do you want to use an existing environment? **Yes**
+# ? Choose the environment you would like to use: **dev**
 ```
 
 Branches
