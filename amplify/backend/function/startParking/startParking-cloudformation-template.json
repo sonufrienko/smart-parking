@@ -62,7 +62,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "smart-parking-dev-20190724110231-deployment",
+					"S3Bucket": "smart-parking-develop-20190828134156-deployment",
 					"S3Key": "amplify-builds/startParking-38686477597241342f31-build.zip"
 				}
 			}
