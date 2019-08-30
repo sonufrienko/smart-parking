@@ -30,7 +30,7 @@ const getParkingInfo = async ({ ID }) => {
 
 exports.handler = async (event, context) => {
   try {
-    const info = await getParkingInfo(event.arguments.input);
+    const info = await getParkingInfo(event.arguments);
     context.done(null, info);
   } catch (err) {
     context.done(err, null);

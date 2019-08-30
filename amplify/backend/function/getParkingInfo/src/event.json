@@ -1,7 +1,7 @@
 {
     "typeName": "Query",
     "fieldName": "getParkingInfo",
-    "arguments": { "input": { "ID": "3RofTKcm103" } },
+    "arguments": { "ID": "3RofTKcm103" },
     "identity": {
       "sub": "111-222-333-444",
       "issuer": "https://cognito-idp.us-west-2.amazonaws.com/us-west-2_1111",
