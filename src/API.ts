@@ -88,6 +88,58 @@ export type ListInvoicesQuery = {
   } | null > | null,
 };
 
+export type ListParkingInfoQuery = {
+  listParkingInfo:  Array< {
+    __typename: "ParkingInfo",
+    ID: string,
+    Title: string | null,
+    Rate: number | null,
+    Address:  {
+      __typename: "Address",
+      City: string | null,
+      CountryCode: string | null,
+      Line1: string | null,
+      PostalCode: string | null,
+      State: string | null,
+    } | null,
+    Location:  {
+      __typename: "Location",
+      Latitude: number | null,
+      Longitude: number | null,
+    } | null,
+    Features: Array< string | null > | null,
+    OpeningHours: string | null,
+  } | null > | null,
+};
+
+export type GetParkingInfoQueryVariables = {
+  ID: string,
+};
+
+export type GetParkingInfoQuery = {
+  getParkingInfo:  {
+    __typename: "ParkingInfo",
+    ID: string,
+    Title: string | null,
+    Rate: number | null,
+    Address:  {
+      __typename: "Address",
+      City: string | null,
+      CountryCode: string | null,
+      Line1: string | null,
+      PostalCode: string | null,
+      State: string | null,
+    } | null,
+    Location:  {
+      __typename: "Location",
+      Latitude: number | null,
+      Longitude: number | null,
+    } | null,
+    Features: Array< string | null > | null,
+    OpeningHours: string | null,
+  } | null,
+};
+
 export type OnUpdateSlotStatusSubscription = {
   onUpdateSlotStatus:  {
     __typename: "Slot",

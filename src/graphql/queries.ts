@@ -22,3 +22,45 @@ export const listInvoices = `query ListInvoices {
   }
 }
 `;
+export const listParkingInfo = `query ListParkingInfo {
+  listParkingInfo {
+    ID
+    Title
+    Rate
+    Address {
+      City
+      CountryCode
+      Line1
+      PostalCode
+      State
+    }
+    Location {
+      Latitude
+      Longitude
+    }
+    Features
+    OpeningHours
+  }
+}
+`;
+export const getParkingInfo = `query GetParkingInfo($ID: ID!) {
+  getParkingInfo(ID: $ID) {
+    ID
+    Title
+    Rate
+    Address {
+      City
+      CountryCode
+      Line1
+      PostalCode
+      State
+    }
+    Location {
+      Latitude
+      Longitude
+    }
+    Features
+    OpeningHours
+  }
+}
+`;

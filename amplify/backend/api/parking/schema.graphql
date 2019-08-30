@@ -1,6 +1,8 @@
 type Query {
   listSlots: [Slot] @function(name: "listSlots-${env}")
   listInvoices: [Invoice] @function(name: "listInvoices-${env}")
+  listParkingInfo: [ParkingInfo] @function(name: "listParkingInfo-${env}")
+  getParkingInfo(ID: ID!): ParkingInfo @function(name: "getParkingInfo-${env}")
 }
 
 type Mutation {
@@ -30,6 +32,29 @@ type Invoice {
   DateFrom: String
   DateTo: String
   Price: Float
+}
+
+type ParkingInfo {
+  ID: ID!
+  Title: String
+  Rate: Float
+  Address: Address
+  Location: Location
+  Features: [String]
+  OpeningHours: String
+}
+
+type Address {
+  City: String
+  CountryCode: String
+  Line1: String
+  PostalCode: String
+  State: String
+}
+
+type Location {
+  Latitude: Float
+  Longitude: Float
 }
 
 input UpdateSlotStatusInput {
