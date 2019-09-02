@@ -1,74 +1,37 @@
 type Query {
-  listSlots: [Slot] @function(name: "listSlots-${env}")
-  listInvoices: [Invoice] @function(name: "listInvoices-${env}")
-  listParkingInfo: [ParkingInfo] @function(name: "listParkingInfo-${env}")
-  getParkingInfo(ID: ID!): ParkingInfo @function(name: "getParkingInfo-${env}")
+  parking(filter: ParkingFilterInput): [Parking] @function(name: "listParking-${env}")
 }
 
-type Mutation {
-  updateSlotStatus(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlotStatus-${env}")
-  startParking(input: StartParkingInput!): Invoice @function(name: "startParking-${env}")
-  finishParking(input: FinishParkingInput!): Invoice @function(name: "finishParking-${env}")
+input ParkingFilterInput {
+  parkingID: String
 }
 
-type Subscription {
-	onUpdateSlotStatus: Slot @aws_subscribe(mutations: ["updateSlotStatus"])
-  onStartParking: Invoice @aws_subscribe(mutations: ["startParking"])
-  onFinishParking: Invoice @aws_subscribe(mutations: ["finishParking"])
+type Parking {
+  parkingID: ID!
+  address: Address
+  features: [String]
+  location: Location!
+  openingHours: String
+  rate: Float
+  title: String!
+  slots: [Slot]
 }
 
 type Slot {
-  Id: ID!
-  Device: Int
-  SlotNumber: String
-  SlotStatus: Int
-}
-
-type Invoice {
-  Id: ID!
-  UserID: String
-  SlotID: String
-  PlateNumber: String
-  DateFrom: String
-  DateTo: String
-  Price: Float
-}
-
-type ParkingInfo {
-  ID: ID!
-  Title: String
-  Rate: Float
-  Address: Address
-  Location: Location
-  Features: [String]
-  OpeningHours: String
+  slotNumber: String
+  slotStatus: Int
+  device: Int
 }
 
 type Address {
-  City: String
-  CountryCode: String
-  Line1: String
-  PostalCode: String
-  State: String
+  city: String
+  countryCode: String
+  line1: String
+  postalCode: String
+  state: String
 }
 
 type Location {
-  Latitude: Float
-  Longitude: Float
-}
-
-input UpdateSlotStatusInput {
-  Device: Int!
-  SlotStatus: Int!
-}
-
-input StartParkingInput {
-  UserID: String!
-  PlateNumber: String!
-  SlotNumber: String!
-}
-
-input FinishParkingInput {
-  UserID: String!
-  InvoiceID: String!
+  latitude: Float
+  longitude: Float
 }
