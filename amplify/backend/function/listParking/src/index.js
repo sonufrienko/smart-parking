@@ -13,22 +13,43 @@ const prepareProperties = item => ({
   slots: []
 })
 
-async function listParking({ filter }) {
-    const params = {
-      TableName : DYNAMODB_TABLE,
-      FilterExpression : 'slotNumber = :slotNumber',
-      ExpressionAttributeValues : {
-        ':slotNumber' : 'info'
-      }
-    };
-    
-    const { Items } = await db.scan(params).promise();
-    return Items.map(prepareProperties);
+function fetchParkingByFilter(filter) {
+  const params = {
+    TableName : DYNAMODB_TABLE,
+    FilterExpression : 'slotNumber = :slotNumber',
+    ExpressionAttributeValues : {
+      ':slotNumber' : 'info'
+    }
+  };
+  
+  return db.scan(params).promise();
+}
+
+function fetchParkingByID(parkingID) {
+  const params = {
+    TableName : DYNAMODB_TABLE,
+    Key: {
+      parkingID,
+      slotNumber: 'info'
+    }
+  };
+  
+  return db.get(params).promise();
+}
+
+async function listParking(filter) {
+  if (filter && filter.parkingID) {
+    const { Item } = await fetchParkingByID(filter.parkingID);
+    return [prepareProperties(Item)];
+  }
+
+  const { Items } = await fetchParkingByFilter(filter);
+  return Items.map(prepareProperties);
 }
 
 exports.handler = async (event, context) => {
   try {
-    const result = await listParking(event.arguments);
+    const result = await listParking(event.arguments.filter);
     context.done(null, result);
   } catch (err) {
     context.done(err, null);
