@@ -18,6 +18,7 @@ type Parking {
 }
 
 type Slot {
+  parkingID: String
   slotNumber: String
   slotStatus: Int
   device: Int
