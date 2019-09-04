@@ -20,6 +20,7 @@ export const parking = `query Parking($filter: ParkingFilterInput) {
     rate
     title
     slots {
+      parkingID
       slotNumber
       slotStatus
       device

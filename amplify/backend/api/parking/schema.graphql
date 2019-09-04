@@ -2,6 +2,20 @@ type Query {
   parking(filter: ParkingFilterInput): [Parking] @function(name: "listParking-${env}")
 }
 
+type Mutation {
+  updateSlot(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlot-${env}")
+}
+
+type Subscription {
+	onUpdateSlot: Slot @aws_subscribe(mutations: ["updateSlot"])
+}
+
+input UpdateSlotStatusInput {
+  parkingID: String!
+  device: Int!
+  slotStatus: Int!
+}
+
 input ParkingFilterInput {
   parkingID: String
 }

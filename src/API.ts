@@ -1,8 +1,28 @@
 /* tslint:disable */
 //  This file was automatically generated and should not be edited.
 
+export type UpdateSlotStatusInput = {
+  parkingID: string,
+  device: number,
+  slotStatus: number,
+};
+
 export type ParkingFilterInput = {
   parkingID?: string | null,
+};
+
+export type UpdateSlotMutationVariables = {
+  input: UpdateSlotStatusInput,
+};
+
+export type UpdateSlotMutation = {
+  updateSlot:  {
+    __typename: "Slot",
+    parkingID: string | null,
+    slotNumber: string | null,
+    slotStatus: number | null,
+    device: number | null,
+  } | null,
 };
 
 export type ParkingQueryVariables = {
@@ -32,9 +52,20 @@ export type ParkingQuery = {
     title: string,
     slots:  Array< {
       __typename: "Slot",
+      parkingID: string | null,
       slotNumber: string | null,
       slotStatus: number | null,
       device: number | null,
     } | null > | null,
   } | null > | null,
+};
+
+export type OnUpdateSlotSubscription = {
+  onUpdateSlot:  {
+    __typename: "Slot",
+    parkingID: string | null,
+    slotNumber: string | null,
+    slotStatus: number | null,
+    device: number | null,
+  } | null,
 };
