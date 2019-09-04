@@ -15,16 +15,6 @@
 		}
 	},
 	"function": {
-		"listSlots": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
-		"updateSlotStatus": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
 		"startParking": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
@@ -36,16 +26,6 @@
 			"build": true
 		},
 		"listInvoices": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
-		"listParkingInfo": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
-		"getParkingInfo": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
