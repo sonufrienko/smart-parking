@@ -15,21 +15,6 @@
 		}
 	},
 	"function": {
-		"startParking": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
-		"finishParking": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
-		"listInvoices": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
 		"listParking": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
@@ -41,6 +26,26 @@
 			"build": true
 		},
 		"updateSlot": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"getCurrentUser": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"createInvoice": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"closeInvoice": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"listParkingBatch": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
