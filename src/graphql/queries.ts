@@ -28,3 +28,31 @@ export const parking = `query Parking($filter: ParkingFilterInput) {
   }
 }
 `;
+export const me = `query Me {
+  me {
+    userID
+    fullName
+    vehicles {
+      make
+      model
+      plateNumber
+    }
+    invoices {
+      parkingID
+      invoiceID
+      slotNumber
+      dateFrom
+      dateTo
+      plateNumber
+      price
+      parking {
+        parkingID
+        features
+        openingHours
+        rate
+        title
+      }
+    }
+  }
+}
+`;
