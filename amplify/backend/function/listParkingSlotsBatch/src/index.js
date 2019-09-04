@@ -3,6 +3,7 @@ const db = new AWS.DynamoDB.DocumentClient({ region: 'us-west-2' });
 const DYNAMODB_TABLE = 'Parking';
 
 const prepareProperties = item => ({
+  parkingID: item.parkingID,
   device: item.device,
   slotNumber: item.slotNumber,
   slotStatus: item.slotStatus
