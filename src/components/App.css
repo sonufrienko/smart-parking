@@ -1,5 +1,11 @@
-html {
+:root {
+  height: 100%;
   background-color: #f5f5f5;
+  background-color: rgb(229, 227, 223);
+}
+
+body {
+  height: 100%;
 }
 
 a {
@@ -8,6 +14,10 @@ a {
 
 canvas {
   display: block;
+}
+
+#root {
+  height: 100%;
 }
 
 .slots {

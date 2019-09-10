@@ -3,10 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { withAuthenticator } from 'aws-amplify-react';
 import Auth from '@aws-amplify/auth';
 import awsconfig from '../aws-exports';
-import SlotListContainer from './SlotListContainer';
 import { StateProvider } from '../state';
 import './App.css';
-import { Container, Paper } from '@material-ui/core';
 import { createStyles, makeStyles, Theme, createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { pink } from '@material-ui/core/colors';
@@ -20,8 +18,9 @@ Auth.configure(awsconfig);
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
-      paddingBottom: 40
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
     }
   })
 );
@@ -59,18 +58,18 @@ const App: React.FC = () => {
 
   return (
     <Router>
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
+      <ThemeProvider theme={theme}>
+        <div className={classes.root}>
           <StateProvider>
             <Header onMenuClick={toggleDrawer} />
-        <DrawerMenu toggleDrawer={toggleDrawer} open={drawerOpen} title="Parking Dashboard" />
+            <DrawerMenu toggleDrawer={toggleDrawer} open={drawerOpen} title="Parking Dashboard" />
             <Switch>
               <Route path="/" exact component={ParkingMap}/>
               <Route path="/parking/:parkingID" exact component={ParkingDetails}/>
             </Switch>
-        </StateProvider>
-      </div>
-    </ThemeProvider>
+          </StateProvider>
+        </div>
+      </ThemeProvider>
     </Router>
   );
 };
