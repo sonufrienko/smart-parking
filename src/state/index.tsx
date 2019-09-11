@@ -1,18 +1,17 @@
 import { StateInterface } from '../types';
 import React, { createContext, useContext, useReducer } from 'react';
-import mainReducer from './reducers';
+import reducer from './reducer';
 
 const initialState: StateInterface = {
-  slots: {
+  parkingList: {
     loading: false,
-    items: null
-  },
-  invoices: new Map()
+    items: []
+  }
 };
 
 export const StateContext = createContext([] as any[]);
 export const StateProvider = ({ children }) => (
-  <StateContext.Provider value={useReducer(mainReducer, initialState)}>
+  <StateContext.Provider value={useReducer(reducer, initialState)}>
     {children}
   </StateContext.Provider>
 );
