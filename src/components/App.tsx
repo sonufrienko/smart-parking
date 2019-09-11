@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { withAuthenticator } from 'aws-amplify-react';
-import Auth from '@aws-amplify/auth';
+import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import { StateProvider } from '../state';
 import './App.css';
@@ -13,7 +13,7 @@ import DrawerMenu from './Drawer';
 import ParkingMap from './ParkingMap';
 import ParkingDetails from './ParkingDetails';
 
-Auth.configure(awsconfig);
+Amplify.configure(awsconfig);
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
