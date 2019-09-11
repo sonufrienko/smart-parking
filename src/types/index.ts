@@ -32,7 +32,7 @@ export type Parking = {
 
 export type ParkingListInterface = {
   loading: boolean,
-  items: Array< Parking | null > | null
+  items: Array<Parking>
 }
 
 export interface StateInterface {

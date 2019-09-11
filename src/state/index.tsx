@@ -9,7 +9,7 @@ const initialState: StateInterface = {
   }
 };
 
-export const StateContext = createContext([] as any[]);
+export const StateContext = createContext([initialState, null] as [StateInterface, any]);
 export const StateProvider = ({ children }) => (
   <StateContext.Provider value={useReducer(reducer, initialState)}>
     {children}
