@@ -3,6 +3,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Toolbar, Typography, AppBar, IconButton, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { withRouter, matchPath } from "react-router";
+import { useStateValue } from '../state';
+import { ParkingListInterface } from '../types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,7 +19,38 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header = ({ onMenuClick, title }) => {
+const getTitle = ({ location, parkingList }: { location: { pathname: string }, parkingList: ParkingListInterface }) => {
+  const matchParkingDetails = matchPath(location.pathname, {
+    path: "/parking/:parkingID",
+    exact: true,
+    strict: false
+  });
+
+  if (matchParkingDetails) {
+    const { items } = parkingList;
+    const parking = items && items.length ?
+      items.find(item => item.parkingID === matchParkingDetails.params.parkingID) : null;
+    if (parking) {
+      return parking.title;
+    }
+  } else if (location.pathname === '/') {
+    return 'Parking Map'
+  }
+
+  return 'Parking Dashboard';
+}
+
+const Header = (props) => {
+  const { location, history, onMenuClick } = props;
+  const [
+    {
+      parkingList
+    }
+  ] = useStateValue();
+  const title = getTitle({ location, parkingList });
+  document.title = title;
+  const showBackButton = location.pathname.startsWith('/parking/') && history.length;
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -31,9 +66,17 @@ const Header = ({ onMenuClick, title }) => {
   return (
     <AppBar position="sticky" color="primary">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} onClick={onMenuClick} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
+          { !showBackButton && 
+            <IconButton edge="start" className={classes.menuButton} onClick={onMenuClick} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+          }
+
+          { showBackButton && 
+            <IconButton edge="start" className={classes.menuButton} onClick={() => history.goBack()} color="inherit" aria-label="menu">
+              <ArrowBackIcon />
+            </IconButton>
+          }
           <Typography variant="h6" className={classes.title}>{title}</Typography>
           <IconButton
             aria-label="account of current user"
@@ -67,4 +110,4 @@ const Header = ({ onMenuClick, title }) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

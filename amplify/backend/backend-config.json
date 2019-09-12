@@ -15,27 +15,37 @@
 		}
 	},
 	"function": {
-		"listSlots": {
+		"listParking": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"updateSlotStatus": {
+		"listParkingSlotsBatch": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"startParking": {
+		"updateSlot": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"finishParking": {
+		"getCurrentUser": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"listInvoices": {
+		"createInvoice": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"closeInvoice": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		},
+		"listParkingBatch": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true

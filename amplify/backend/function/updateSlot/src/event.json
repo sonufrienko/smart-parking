@@ -1,0 +1,34 @@
+{
+  "typeName": "Mutation",
+  "fieldName": "updateSlotStatus",
+  "arguments": {
+    "input": {
+      "parkingID": "3RofTKcm103",
+      "device": 11,
+      "slotStatus": 0
+    }
+  },
+  "identity": {
+    "sub": "111-222-333-444",
+    "issuer": "https://cognito-idp.us-west-2.amazonaws.com/us-west-2_1111",
+    "username": "111-222-333-444",
+    "claims": {
+      "sub": "111-222-333-444",
+      "email_verified": true,
+      "iss": "https://cognito-idp.us-west-2.amazonaws.com/us-west-2_1111",
+      "phone_number_verified": true,
+      "cognito:username": "111-222-333-444",
+      "aud": "456b78c9vbxv876v5xcbfdf",
+      "event_id": "956c3d0c-368a-456a-bbc5-000000000",
+      "token_use": "id",
+      "auth_time": 1564038464,
+      "phone_number": "+000000000",
+      "exp": 1564042064,
+      "iat": 1564038464,
+      "email": "user@test.com"
+    },
+    "sourceIp": ["255.255.255.255"],
+    "defaultAuthStrategy": "ALLOW",
+    "groups": null
+  }
+}

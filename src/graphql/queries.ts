@@ -1,24 +1,58 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const listSlots = `query ListSlots {
-  listSlots {
-    Id
-    Device
-    SlotNumber
-    SlotStatus
+export const parking = `query Parking($filter: ParkingFilterInput) {
+  parking(filter: $filter) {
+    parkingID
+    address {
+      city
+      countryCode
+      line1
+      postalCode
+      state
+    }
+    features
+    location {
+      latitude
+      longitude
+    }
+    openingHours
+    rate
+    title
+    slots {
+      parkingID
+      slotNumber
+      slotStatus
+      device
+    }
   }
 }
 `;
-export const listInvoices = `query ListInvoices {
-  listInvoices {
-    Id
-    UserID
-    SlotID
-    PlateNumber
-    DateFrom
-    DateTo
-    Price
+export const me = `query Me {
+  me {
+    userID
+    fullName
+    vehicles {
+      make
+      model
+      plateNumber
+    }
+    invoices {
+      parkingID
+      invoiceID
+      slotNumber
+      dateFrom
+      dateTo
+      plateNumber
+      price
+      parking {
+        parkingID
+        features
+        openingHours
+        rate
+        title
+      }
+    }
   }
 }
 `;

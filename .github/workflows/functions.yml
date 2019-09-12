@@ -4,25 +4,33 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
-        function: [shared, listSlots/src, updateSlotStatus/src, startParking/src, finishParking/src]
+        function:
+          [
+            closeInvoice/src,
+            createInvoice/src,
+            getCurrentUser/src,
+            listParking/src,
+            listParkingBatch/src,
+            listParkingSlotsBatch/src,
+            updateSlot/src,
+          ]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Use Node.js v10
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10.x
-    - name: Install
-      run: |
-        cd amplify/backend/function/${{ matrix.function }};
-        npm install
-    - name: Test
-      run: |
-        cd amplify/backend/function/${{ matrix.function }};
-        npm test --if-present -- --forceExit --watchAll=false
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Use Node.js v10
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: Install
+        run: |
+          cd amplify/backend/function/${{ matrix.function }};
+          npm install
+      - name: Test
+        run: |
+          cd amplify/backend/function/${{ matrix.function }};
+          npm test --if-present -- --forceExit --watchAll=false

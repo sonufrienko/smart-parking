@@ -2,124 +2,203 @@
 //  This file was automatically generated and should not be edited.
 
 export type UpdateSlotStatusInput = {
-  Device: number,
-  SlotStatus: number,
+  parkingID: string,
+  device: number,
+  slotStatus: number,
 };
 
-export type StartParkingInput = {
-  UserID: string,
-  PlateNumber: string,
-  SlotNumber: string,
+export type CreateInvoiceInput = {
+  parkingID?: string | null,
+  slotNumber?: string | null,
+  plateNumber?: string | null,
 };
 
-export type FinishParkingInput = {
-  UserID: string,
-  InvoiceID: string,
+export type CloseInvoiceInput = {
+  parkingID?: string | null,
+  invoiceID?: string | null,
 };
 
-export type UpdateSlotStatusMutationVariables = {
+export type ParkingFilterInput = {
+  parkingID?: string | null,
+};
+
+export type UpdateSlotMutationVariables = {
   input: UpdateSlotStatusInput,
 };
 
-export type UpdateSlotStatusMutation = {
-  updateSlotStatus:  {
+export type UpdateSlotMutation = {
+  updateSlot:  {
     __typename: "Slot",
-    Id: string,
-    Device: number | null,
-    SlotNumber: string | null,
-    SlotStatus: number | null,
+    parkingID: string | null,
+    slotNumber: string | null,
+    slotStatus: number | null,
+    device: number | null,
   } | null,
 };
 
-export type StartParkingMutationVariables = {
-  input: StartParkingInput,
+export type CreateInvoiceMutationVariables = {
+  input: CreateInvoiceInput,
 };
 
-export type StartParkingMutation = {
-  startParking:  {
+export type CreateInvoiceMutation = {
+  createInvoice:  {
     __typename: "Invoice",
-    Id: string,
-    UserID: string | null,
-    SlotID: string | null,
-    PlateNumber: string | null,
-    DateFrom: string | null,
-    DateTo: string | null,
-    Price: number | null,
+    parkingID: string | null,
+    invoiceID: string | null,
+    slotNumber: string | null,
+    dateFrom: string | null,
+    dateTo: string | null,
+    plateNumber: string | null,
+    price: number | null,
+    parking:  {
+      __typename: "Parking",
+      parkingID: string,
+      address:  {
+        __typename: "Address",
+        city: string | null,
+        countryCode: string | null,
+        line1: string | null,
+        postalCode: string | null,
+        state: string | null,
+      } | null,
+      features: Array< string | null > | null,
+      location:  {
+        __typename: "Location",
+        latitude: number | null,
+        longitude: number | null,
+      },
+      openingHours: string | null,
+      rate: number | null,
+      title: string,
+      slots:  Array< {
+        __typename: "Slot",
+        parkingID: string | null,
+        slotNumber: string | null,
+        slotStatus: number | null,
+        device: number | null,
+      } | null > | null,
+    } | null,
   } | null,
 };
 
-export type FinishParkingMutationVariables = {
-  input: FinishParkingInput,
+export type CloseInvoiceMutationVariables = {
+  input: CloseInvoiceInput,
 };
 
-export type FinishParkingMutation = {
-  finishParking:  {
+export type CloseInvoiceMutation = {
+  closeInvoice:  {
     __typename: "Invoice",
-    Id: string,
-    UserID: string | null,
-    SlotID: string | null,
-    PlateNumber: string | null,
-    DateFrom: string | null,
-    DateTo: string | null,
-    Price: number | null,
+    parkingID: string | null,
+    invoiceID: string | null,
+    slotNumber: string | null,
+    dateFrom: string | null,
+    dateTo: string | null,
+    plateNumber: string | null,
+    price: number | null,
+    parking:  {
+      __typename: "Parking",
+      parkingID: string,
+      address:  {
+        __typename: "Address",
+        city: string | null,
+        countryCode: string | null,
+        line1: string | null,
+        postalCode: string | null,
+        state: string | null,
+      } | null,
+      features: Array< string | null > | null,
+      location:  {
+        __typename: "Location",
+        latitude: number | null,
+        longitude: number | null,
+      },
+      openingHours: string | null,
+      rate: number | null,
+      title: string,
+      slots:  Array< {
+        __typename: "Slot",
+        parkingID: string | null,
+        slotNumber: string | null,
+        slotStatus: number | null,
+        device: number | null,
+      } | null > | null,
+    } | null,
   } | null,
 };
 
-export type ListSlotsQuery = {
-  listSlots:  Array< {
-    __typename: "Slot",
-    Id: string,
-    Device: number | null,
-    SlotNumber: string | null,
-    SlotStatus: number | null,
+export type ParkingQueryVariables = {
+  filter?: ParkingFilterInput | null,
+};
+
+export type ParkingQuery = {
+  parking:  Array< {
+    __typename: "Parking",
+    parkingID: string,
+    address:  {
+      __typename: "Address",
+      city: string | null,
+      countryCode: string | null,
+      line1: string | null,
+      postalCode: string | null,
+      state: string | null,
+    } | null,
+    features: Array< string | null > | null,
+    location:  {
+      __typename: "Location",
+      latitude: number | null,
+      longitude: number | null,
+    },
+    openingHours: string | null,
+    rate: number | null,
+    title: string,
+    slots:  Array< {
+      __typename: "Slot",
+      parkingID: string | null,
+      slotNumber: string | null,
+      slotStatus: number | null,
+      device: number | null,
+    } | null > | null,
   } | null > | null,
 };
 
-export type ListInvoicesQuery = {
-  listInvoices:  Array< {
-    __typename: "Invoice",
-    Id: string,
-    UserID: string | null,
-    SlotID: string | null,
-    PlateNumber: string | null,
-    DateFrom: string | null,
-    DateTo: string | null,
-    Price: number | null,
-  } | null > | null,
+export type MeQuery = {
+  me:  {
+    __typename: "User",
+    userID: string | null,
+    fullName: string | null,
+    vehicles:  Array< {
+      __typename: "Vehicle",
+      make: string | null,
+      model: string | null,
+      plateNumber: string | null,
+    } | null > | null,
+    invoices:  Array< {
+      __typename: "Invoice",
+      parkingID: string | null,
+      invoiceID: string | null,
+      slotNumber: string | null,
+      dateFrom: string | null,
+      dateTo: string | null,
+      plateNumber: string | null,
+      price: number | null,
+      parking:  {
+        __typename: "Parking",
+        parkingID: string,
+        features: Array< string | null > | null,
+        openingHours: string | null,
+        rate: number | null,
+        title: string,
+      } | null,
+    } | null > | null,
+  } | null,
 };
 
-export type OnUpdateSlotStatusSubscription = {
-  onUpdateSlotStatus:  {
+export type OnUpdateSlotSubscription = {
+  onUpdateSlot:  {
     __typename: "Slot",
-    Id: string,
-    Device: number | null,
-    SlotNumber: string | null,
-    SlotStatus: number | null,
-  } | null,
-};
-
-export type OnStartParkingSubscription = {
-  onStartParking:  {
-    __typename: "Invoice",
-    Id: string,
-    UserID: string | null,
-    SlotID: string | null,
-    PlateNumber: string | null,
-    DateFrom: string | null,
-    DateTo: string | null,
-    Price: number | null,
-  } | null,
-};
-
-export type OnFinishParkingSubscription = {
-  onFinishParking:  {
-    __typename: "Invoice",
-    Id: string,
-    UserID: string | null,
-    SlotID: string | null,
-    PlateNumber: string | null,
-    DateFrom: string | null,
-    DateTo: string | null,
-    Price: number | null,
+    parkingID: string | null,
+    slotNumber: string | null,
+    slotStatus: number | null,
+    device: number | null,
   } | null,
 };

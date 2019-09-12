@@ -1,49 +1,90 @@
 type Query {
-  listSlots: [Slot] @function(name: "listSlots-${env}")
-  listInvoices: [Invoice] @function(name: "listInvoices-${env}")
+  parking(filter: ParkingFilterInput): [Parking] @function(name: "listParking-${env}")
+  me: User @function(name: "getCurrentUser-${env}")
 }
 
 type Mutation {
-  updateSlotStatus(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlotStatus-${env}")
-  startParking(input: StartParkingInput!): Invoice @function(name: "startParking-${env}")
-  finishParking(input: FinishParkingInput!): Invoice @function(name: "finishParking-${env}")
+  updateSlot(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlot-${env}")
+  createInvoice(input: CreateInvoiceInput!): Invoice @function(name: "createInvoice-${env}")
+  closeInvoice(input: CloseInvoiceInput!): Invoice @function(name: "closeInvoice-${env}")
 }
 
 type Subscription {
-	onUpdateSlotStatus: Slot @aws_subscribe(mutations: ["updateSlotStatus"])
-  onStartParking: Invoice @aws_subscribe(mutations: ["startParking"])
-  onFinishParking: Invoice @aws_subscribe(mutations: ["finishParking"])
-}
-
-type Slot {
-  Id: ID!
-  Device: Int
-  SlotNumber: String
-  SlotStatus: Int
-}
-
-type Invoice {
-  Id: ID!
-  UserID: String
-  SlotID: String
-  PlateNumber: String
-  DateFrom: String
-  DateTo: String
-  Price: Float
+	onUpdateSlot: Slot @aws_subscribe(mutations: ["updateSlot"])
 }
 
 input UpdateSlotStatusInput {
-  Device: Int!
-  SlotStatus: Int!
+  parkingID: String!
+  device: Int!
+  slotStatus: Int!
 }
 
-input StartParkingInput {
-  UserID: String!
-  PlateNumber: String!
-  SlotNumber: String!
+input ParkingFilterInput {
+  parkingID: String
 }
 
-input FinishParkingInput {
-  UserID: String!
-  InvoiceID: String!
+input CreateInvoiceInput {
+  parkingID: String
+  slotNumber: String
+  plateNumber: String
+}
+
+input CloseInvoiceInput {
+  parkingID: String
+  invoiceID: String
+}
+
+type Parking {
+  parkingID: ID!
+  address: Address
+  features: [String]
+  location: Location!
+  openingHours: String
+  rate: Float
+  title: String!
+  slots: [Slot]
+}
+
+type Slot {
+  parkingID: String
+  slotNumber: String
+  slotStatus: Int
+  device: Int
+}
+
+type Address {
+  city: String
+  countryCode: String
+  line1: String
+  postalCode: String
+  state: String
+}
+
+type Location {
+  latitude: Float
+  longitude: Float
+}
+
+type User {
+  userID: String
+  fullName: String
+  vehicles: [Vehicle]
+  invoices: [Invoice]
+}
+
+type Vehicle {
+  make: String
+  model: String
+  plateNumber: String
+}
+
+type Invoice {
+  parkingID: String
+  invoiceID: String
+  slotNumber: String
+  dateFrom: String
+  dateTo: String
+  plateNumber: String
+  price: Float
+  parking: Parking
 }

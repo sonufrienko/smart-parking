@@ -1,36 +1,84 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const updateSlotStatus = `mutation UpdateSlotStatus($input: UpdateSlotStatusInput!) {
-  updateSlotStatus(input: $input) {
-    Id
-    Device
-    SlotNumber
-    SlotStatus
+export const updateSlot = `mutation UpdateSlot($input: UpdateSlotStatusInput!) {
+  updateSlot(input: $input) {
+    parkingID
+    slotNumber
+    slotStatus
+    device
   }
 }
 `;
-export const startParking = `mutation StartParking($input: StartParkingInput!) {
-  startParking(input: $input) {
-    Id
-    UserID
-    SlotID
-    PlateNumber
-    DateFrom
-    DateTo
-    Price
+export const createInvoice = `mutation CreateInvoice($input: CreateInvoiceInput!) {
+  createInvoice(input: $input) {
+    parkingID
+    invoiceID
+    slotNumber
+    dateFrom
+    dateTo
+    plateNumber
+    price
+    parking {
+      parkingID
+      address {
+        city
+        countryCode
+        line1
+        postalCode
+        state
+      }
+      features
+      location {
+        latitude
+        longitude
+      }
+      openingHours
+      rate
+      title
+      slots {
+        parkingID
+        slotNumber
+        slotStatus
+        device
+      }
+    }
   }
 }
 `;
-export const finishParking = `mutation FinishParking($input: FinishParkingInput!) {
-  finishParking(input: $input) {
-    Id
-    UserID
-    SlotID
-    PlateNumber
-    DateFrom
-    DateTo
-    Price
+export const closeInvoice = `mutation CloseInvoice($input: CloseInvoiceInput!) {
+  closeInvoice(input: $input) {
+    parkingID
+    invoiceID
+    slotNumber
+    dateFrom
+    dateTo
+    plateNumber
+    price
+    parking {
+      parkingID
+      address {
+        city
+        countryCode
+        line1
+        postalCode
+        state
+      }
+      features
+      location {
+        latitude
+        longitude
+      }
+      openingHours
+      rate
+      title
+      slots {
+        parkingID
+        slotNumber
+        slotStatus
+        device
+      }
+    }
   }
 }
 `;
