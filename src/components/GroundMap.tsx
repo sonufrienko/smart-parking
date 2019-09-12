@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
-import { SlotState, InvoicesState, Point } from '../types';
+import { Parking, Point } from '../types';
 import { Typography, LinearProgress } from '@material-ui/core';
 
 const CoordinatesOfSlots = new Map<string, Point[]>([
-  ['A50', [{ x: 24, y: 508 }, { x: 90, y: 478 }, { x: 213, y: 535 }, { x: 154, y: 567 }]],
-  ['A51', [{ x: 109, y: 477 }, { x: 168, y: 450 }, { x: 283, y: 493 }, { x: 227, y: 525 }]],
-  ['A52', [{ x: 184, y: 442 }, { x: 226, y: 418 }, { x: 337, y: 459 }, { x: 294, y: 486 }]],
-  ['A53', [{ x: 242, y: 412 }, { x: 281, y: 391 }, { x: 394, y: 429 }, { x: 354, y: 454 }]],
-  ['A54', [{ x: 303, y: 385 }, { x: 334, y: 365 }, { x: 444, y: 401 }, { x: 406, y: 422 }]],
+  ['A10', [{ x: 24, y: 508 }, { x: 90, y: 478 }, { x: 213, y: 535 }, { x: 154, y: 567 }]],
+  ['A11', [{ x: 109, y: 477 }, { x: 168, y: 450 }, { x: 283, y: 493 }, { x: 227, y: 525 }]],
+  ['A12', [{ x: 184, y: 442 }, { x: 226, y: 418 }, { x: 337, y: 459 }, { x: 294, y: 486 }]],
+  ['A13', [{ x: 242, y: 412 }, { x: 281, y: 391 }, { x: 394, y: 429 }, { x: 354, y: 454 }]],
+  ['A14', [{ x: 303, y: 385 }, { x: 334, y: 365 }, { x: 444, y: 401 }, { x: 406, y: 422 }]],
   ['A55', [{ x: 350, y: 360 }, { x: 381, y: 341 }, { x: 486, y: 374 }, { x: 454, y: 393 }]],
   ['A56', [{ x: 395, y: 336 }, { x: 424, y: 321 }, { x: 530, y: 352 }, { x: 500, y: 369 }]],
   ['A57', [{ x: 439, y: 316 }, { x: 464, y: 301 }, { x: 568, y: 330 }, { x: 541, y: 346 }]],
@@ -70,7 +70,7 @@ function drawImage({ canvas, ctx, image }) {
   ctx.drawImage(image, 0, 0);
 }
 
-function drawMap({ imageUrl, canvas, items, invoices }) {
+function drawMap({ imageUrl, canvas, items }) {
   if (canvas) {
     const ctx = canvas.getContext('2d');
 
@@ -79,27 +79,26 @@ function drawMap({ imageUrl, canvas, items, invoices }) {
     image.onload = () => {
       drawImage({ canvas, ctx, image });
       for (const slot of items) {
-        const { SlotNumber, SlotStatus } = slot;
-        const slotPoints = CoordinatesOfSlots.get(SlotNumber);
-        const slotIsTaken = Boolean(SlotStatus);
-        drawSlot({ ctx, slotIsTaken, slotPoints });
+        const { parkingID, slotNumber, slotStatus, device } = slot;
+        const slotPoints = CoordinatesOfSlots.get(slotNumber.toUpperCase());
+        const slotIsTaken = Boolean(slotStatus);
+        slotPoints && drawSlot({ ctx, slotIsTaken, slotPoints });
       }
     };
   }
 }
 
-function GroundMap({ title, items, invoices, loading, imageUrl }: {
-  title: string, items: SlotState[], invoices: InvoicesState, loading: boolean, imageUrl: string
+function GroundMap({ items, loading, imageUrl }: {
+  items: any[] | null, loading: boolean, imageUrl: string
 }) {
   const canvasRef = useRef(null);
   const canvas: any = canvasRef.current;
-  drawMap({ imageUrl, canvas, items, invoices });
+  drawMap({ imageUrl, canvas, items });
 
   return (
     <React.Fragment>
       <canvas ref={canvasRef} />
       { loading && <LinearProgress />}
-      <Typography style={{ marginTop: 14, marginBottom: 14, textAlign: 'center' }}>{title}</Typography>
     </React.Fragment>
   );
 }
