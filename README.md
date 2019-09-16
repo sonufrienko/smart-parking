@@ -3,6 +3,10 @@ Cloud and Web dashboard for real-time visualization of parking slots.
 
 [Dashboard Demo](https://master.d3vd5aw3f6hntg.amplifyapp.com/)
 
+![](public/images/scr1.png)
+
+![](public/images/scr2.png)
+
 
 ## Serverless Architecture
 
