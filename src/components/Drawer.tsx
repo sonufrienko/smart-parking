@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Drawer, IconButton, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import MapIcon from '@material-ui/icons/Map';
 import MenuIcon from '@material-ui/icons/Menu';
+import EditLocationIcon from '@material-ui/icons/EditLocation';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const drawerWidth = 280;
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,21 +54,18 @@ const DrawerMenu = ({ toggleDrawer, open, title }) => {
           {title}
         </div>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button component={Link} to="/">
+            <ListItemIcon><MapIcon /></ListItemIcon>
+            <ListItemText primary="Map" />
+          </ListItem>
+          <ListItem button component={Link} to="/map-edit">
+            <ListItemIcon><EditLocationIcon /></ListItemIcon>
+            <ListItemText primary="Map editor" />
+          </ListItem>
+          <ListItem button component={Link} to="/settings">
+            <ListItemIcon><SettingsIcon /></ListItemIcon>
+            <ListItemText primary="Settings" />
+          </ListItem>
         </List>
       </Drawer>
   );
