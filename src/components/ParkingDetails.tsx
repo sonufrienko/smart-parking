@@ -4,59 +4,8 @@ import * as subscriptions from '../graphql/subscriptions';
 import { ParkingResponse } from '../types';
 import GroundMap from './GroundMap';
 import { Container, Paper } from '@material-ui/core';
-import styled, { css } from 'styled-components';
-
-const MetricsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  text-align: center;
-`;
-
-const MetricsItem = styled.div`
-  border-right: 1px solid #ccc;
-  padding: 10px 30px 15px 30px;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  &:last-of-type {
-    border-right: none;
-  }
-`;
-
-const MetricTitle = styled.div`
-  color: #777;
-  margin-bottom: 5px;
-  font-size: 0.85rem;
-`;
-
-const MetricValue = styled.div`
-  background-color: #f1f8e9;
-  color: #333;
-  border-radius: 50%;
-  font-weight: 500;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  ${props => props.type === 'free' && css`
-    background-color: #4caf50;
-    color: #fff;
-  `}
-
-  ${props => props.type === 'used' && css`
-    background-color: #d32f2f;
-    color: #fff;
-  `}
-`;
-
-const MetricsPaper = styled(Paper)`
-  margin: 0 0 20px 0px
-`;
+import styled from 'styled-components';
+import ParkingMetrics from './ParkingMetrics';
 
 const DetailsWrapper = styled.div`
   display: flex;
@@ -66,22 +15,30 @@ const DetailsWrapper = styled.div`
   flex-direction: column;
 `;
 
-const MetricsItemComponent = ({ title, type, value }: { title: string, type: string, value: number }) => (
-  <MetricsItem>
-    <MetricTitle>{title}</MetricTitle>
-    <MetricValue type={type}>{value}</MetricValue>
-  </MetricsItem>
-)
+const updateSlotInArray = ({ updatedSlot, slots }) => slots.map(slot => 
+  slot.parkingID === updatedSlot.parkingID &&
+  slot.slotNumber === updatedSlot.slotNumber ? updatedSlot : slot);
 
-const ParkingMetrics = ({ used, total }: { used: number, total: number }) => (
-  <MetricsPaper>
-    <MetricsContainer>
-      <MetricsItemComponent type="free" title="Free" value={total - used} />
-      <MetricsItemComponent type="used" title="Used" value={used} />
-      <MetricsItemComponent type="total" title="Total" value={total} />
-    </MetricsContainer>
-  </MetricsPaper>
-)
+const getSlotsFromResponse = ({ data }) => {
+  const firstParking = data.parking && data.parking.length ? data.parking[0] : null;
+  const slots = firstParking && firstParking.slots && firstParking.slots.length ? firstParking.slots : [];
+  return slots;
+}
+
+const handleAPIError = err => {
+  alert(err.errors.map(e => e.message).join());
+}
+
+const QUERY_SLOTS_ONLY = `query Parking($filter: ParkingFilterInput) {
+  parking(filter: $filter) {
+    slots {
+      parkingID
+      slotNumber
+      slotStatus
+      device
+    }
+  }
+}`;
 
 const ParkingDetails = ({ match }) => {
   const [ slots, setSlots ] = useState<any[]>([]);
@@ -89,35 +46,24 @@ const ParkingDetails = ({ match }) => {
   const { params: { parkingID } } = match;
 
   useEffect(() => {
-    const fetchSlotData = () => {
+    const fetchSlotData = async () => {
       setLoading(true);
-      const queryForSlotsOnly = `query Parking($filter: ParkingFilterInput) {
-        parking(filter: $filter) {
-          slots {
-            parkingID
-            slotNumber
-            slotStatus
-            device
-          }
+
+      const queryOptions = {
+        filter: {
+          parkingID
         }
-      }`;
-  
-      const filterByParkingID = {
-        parkingID
       };
   
-      API.graphql(graphqlOperation(queryForSlotsOnly, {filter: filterByParkingID}))
-      .then((response: ParkingResponse) => {
-        const { data } = response;
-        const firstParking = data.parking && data.parking.length ? data.parking[0] : null;
-        const slotsFromRequest = firstParking && firstParking.slots && firstParking.slots.length ? firstParking.slots : [];
-        setSlots(slotsFromRequest)
-        setLoading(false);
-      })
-      .catch(response => {
-        alert(response.errors.map(e => e.message).join());
-        setLoading(false);
-      });
+      try {
+        const response: ParkingResponse = await API.graphql(graphqlOperation(QUERY_SLOTS_ONLY, queryOptions));
+        const slotsFromResponse = getSlotsFromResponse(response);
+        setSlots(slotsFromResponse);
+      } catch (e) {
+        handleAPIError(e);
+      }
+
+      setLoading(false);
     }
     
     fetchSlotData();
@@ -126,17 +72,14 @@ const ParkingDetails = ({ match }) => {
   useEffect(() => {
     const onUpdate = data => {
       const { value: { data: { onUpdateSlot: updatedSlot } } } = data;
-      
-      const newSlots = slots.map(slot => 
-        slot.parkingID === updatedSlot.parkingID &&
-        slot.slotNumber === updatedSlot.slotNumber ? updatedSlot : slot);
-      
+      const newSlots = updateSlotInArray({ updatedSlot, slots });
       setSlots(newSlots);
     }
 
     const subscribeToUpdates = () => API.graphql(graphqlOperation(subscriptions.onUpdateSlot)
       ).subscribe({
-        next: onUpdate
+        next: onUpdate,
+        error: handleAPIError
       });
   
     let subscriptionToUpdates;
