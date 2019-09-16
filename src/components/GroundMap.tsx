@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { Parking, Point } from '../types';
-import { Typography, LinearProgress } from '@material-ui/core';
+import { Point } from '../types';
+import { LinearProgress } from '@material-ui/core';
 
 const CoordinatesOfSlots = new Map<string, Point[]>([
   ['A10', [{ x: 24, y: 508 }, { x: 90, y: 478 }, { x: 213, y: 535 }, { x: 154, y: 567 }]],
@@ -70,7 +70,7 @@ function drawImage({ canvas, ctx, image }) {
   ctx.drawImage(image, 0, 0);
 }
 
-function drawMap({ imageUrl, canvas, items }) {
+function drawMap({ imageUrl, canvas, slots }) {
   if (canvas) {
     const ctx = canvas.getContext('2d');
 
@@ -78,8 +78,8 @@ function drawMap({ imageUrl, canvas, items }) {
     image.src = imageUrl;
     image.onload = () => {
       drawImage({ canvas, ctx, image });
-      for (const slot of items) {
-        const { parkingID, slotNumber, slotStatus, device } = slot;
+      for (const slot of slots) {
+        const { slotNumber, slotStatus } = slot;
         const slotPoints = CoordinatesOfSlots.get(slotNumber.toUpperCase());
         const slotIsTaken = Boolean(slotStatus);
         slotPoints && drawSlot({ ctx, slotIsTaken, slotPoints });
@@ -88,12 +88,12 @@ function drawMap({ imageUrl, canvas, items }) {
   }
 }
 
-function GroundMap({ items, loading, imageUrl }: {
-  items: any[] | null, loading: boolean, imageUrl: string
+function GroundMap({ slots, loading, imageUrl }: {
+  slots: any[] | null, loading: boolean, imageUrl: string
 }) {
   const canvasRef = useRef(null);
   const canvas: any = canvasRef.current;
-  drawMap({ imageUrl, canvas, items });
+  drawMap({ imageUrl, canvas, slots });
 
   return (
     <React.Fragment>

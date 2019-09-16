@@ -13,7 +13,6 @@ import DrawerMenu from './Drawer';
 import ParkingMap from './ParkingMap';
 import ParkingDetails from './ParkingDetails';
 import { ActionType, ParkingResponse } from '../types';
-import * as queries from '../graphql/queries';
 
 Amplify.configure(awsconfig);
 
