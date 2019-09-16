@@ -6,6 +6,7 @@ import GroundMap from './GroundMap';
 import { Container, Paper } from '@material-ui/core';
 import styled from 'styled-components';
 import ParkingMetrics from './ParkingMetrics';
+import Maps from '../maps';
 
 const DetailsWrapper = styled.div`
   display: flex;
@@ -94,7 +95,10 @@ const ParkingDetails = ({ match }) => {
 
   const usedSlots = slots.filter(slot => slot.slotStatus).length;
   const totalSlots = slots.length;
-  const imageUrl = '/images/groundmap.jpg';
+  
+  const mapConfig = Maps.find(map => map.parkingID === parkingID) || Maps[0];
+  const { imageUrl, coordinates } = mapConfig;
+  const coordinatesOfSlots = coordinates;
 
   return (
     <Container>
@@ -105,6 +109,7 @@ const ParkingDetails = ({ match }) => {
             slots={slots}
             loading={loading}
             imageUrl={imageUrl}
+            coordinatesOfSlots={coordinatesOfSlots}
           />
       </Paper>
       </DetailsWrapper>
