@@ -16,9 +16,19 @@ export const parking = `query Parking($filter: ParkingFilterInput) {
       latitude
       longitude
     }
-    openingHours
+    openingHours {
+      open {
+        day
+        time
+      }
+      close {
+        day
+        time
+      }
+    }
     rate
     title
+    freeSlots
     slots {
       parkingID
       slotNumber
@@ -48,9 +58,9 @@ export const me = `query Me {
       parking {
         parkingID
         features
-        openingHours
         rate
         title
+        freeSlots
       }
     }
   }
