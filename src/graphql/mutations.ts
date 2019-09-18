@@ -33,9 +33,9 @@ export const createInvoice = `mutation CreateInvoice($input: CreateInvoiceInput!
         latitude
         longitude
       }
-      openingHours
       rate
       title
+      freeSlots
       slots {
         parkingID
         slotNumber
@@ -69,9 +69,9 @@ export const closeInvoice = `mutation CloseInvoice($input: CloseInvoiceInput!) {
         latitude
         longitude
       }
-      openingHours
       rate
       title
+      freeSlots
       slots {
         parkingID
         slotNumber

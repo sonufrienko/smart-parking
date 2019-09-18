@@ -75,7 +75,16 @@ const App: React.FC = () => {
           latitude
           longitude
         }
-        openingHours
+        openingHours {
+          open {
+            day
+            time
+          }
+          close {
+            day
+            time
+          }
+        }
         rate
         title
       }
