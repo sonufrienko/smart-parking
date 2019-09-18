@@ -39,10 +39,21 @@ type Parking {
   address: Address
   features: [String]
   location: Location!
-  openingHours: String
+  openingHours: [WorkDay]
   rate: Float
   title: String!
+  freeSlots: Int!
   slots: [Slot]
+}
+
+type WorkDay {
+  open: DayAndTime
+  close: DayAndTime
+}
+
+type DayAndTime {
+  day: Int!
+  time: String
 }
 
 type Slot {
