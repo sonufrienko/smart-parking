@@ -4,7 +4,7 @@ type Query {
 }
 
 type Mutation {
-  updateSlot(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlot-${env}") @aws_api_key @aws_cognito_user_pools
+  updateSlot(input: UpdateSlotStatusInput!): Slot @function(name: "updateSlot-${env}")
   createInvoice(input: CreateInvoiceInput!): Invoice @function(name: "createInvoice-${env}")
   closeInvoice(input: CloseInvoiceInput!): Invoice @function(name: "closeInvoice-${env}")
 }
@@ -56,7 +56,7 @@ type DayAndTime {
   time: String
 }
 
-type Slot @aws_api_key @aws_cognito_user_pools {
+type Slot {
   parkingID: String
   slotNumber: String
   slotStatus: Int
