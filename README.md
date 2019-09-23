@@ -10,6 +10,8 @@ Cloud and Web dashboard for real-time visualization of parking slots.
 
 ## Serverless Architecture
 
+![](aws-cloud-architecture.png)
+
 Cloud
 - AWS Amplify
 - AWS AppSync (using multiple authorization types)
