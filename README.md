@@ -87,6 +87,23 @@ amplify mock function listSlots
 amplify mock api
 ```
 
+## Request from LoRa Gateway
+
+Request to change parking slot status:
+
+- `APPSYNC-API-URL` - AppSync URL, example: https://xxx.appsync-api.us-west-2.amazonaws.com/graphql
+- `APPSYNC-API-KEY` - Authorization by API Key
+- `PARKING-ID` - Parking ID (string)
+- `DEVICE-ID` - Device ID (number)
+- `SLOT-STATUS` - Free - 0, Used - 1 (number)
+
+```
+curl \
+-XPOST https://<APPSYNC-API-URL>/graphql \
+-H "Content-Type:application/graphql" \
+-H "x-api-key:<APPSYNC-API-KEY>" \
+-d '{ "query": "mutation { updateSlot(input: { parkingID: \"<PARKING-ID>\" device: <DEVICE-ID> slotStatus: <SLOT-STATUS> }) { parkingID slotNumber slotStatus device }}" }'
+```
 
 ## Scripts
 
