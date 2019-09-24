@@ -79,6 +79,8 @@ type Location {
 type User {
   userID: String
   fullName: String
+  email: String
+  phone: String
   vehicles: [Vehicle]
   invoices: [Invoice]
 }

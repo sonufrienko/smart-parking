@@ -6,7 +6,7 @@ const prepareUserProperties = item => ({
   userID: item.userID,
   vehicles: item.vehicles,
   fullName: item.fullName
-})
+});
 
 const prepareInvoiceProperties = item => ({
   parkingID: item.parkingID,
@@ -17,7 +17,7 @@ const prepareInvoiceProperties = item => ({
   plateNumber: item.plateNumber,
   price: item.price,
   parking: {}
-})
+});
 
 const getUserAndInvoices = userID => {
   const params = {
@@ -29,21 +29,33 @@ const getUserAndInvoices = userID => {
   return db.query(params).promise();
 };
 
-async function getUser(userID) {
+async function getUser({ userID, email, phone }) {
   const { Items } = await getUserAndInvoices(userID);
-  const user = Items.find(item => item.invoiceID === 'info');
-  const invoices = Items.filter(item => item.invoiceID !== 'info');
-  
-  const result = prepareUserProperties(user);
-  result.invoices = invoices.map(prepareInvoiceProperties);
-  return result;
+  const userRaw = Items.find(item => item.invoiceID === 'info');
+  const invoicesRaw = Items.filter(item => item.invoiceID !== 'info');
+
+  const user = prepareUserProperties(userRaw);
+  const invoices = invoicesRaw.map(prepareInvoiceProperties);
+
+  return {
+    ...user,
+    invoices,
+    email,
+    phone
+  };
 }
 
 exports.handler = async (event, context) => {
   try {
     // get AWS Cognito user ID
-    const userID = event.identity.sub;
-    const result = await getUser(userID);
+    const {
+      identity: {
+        sub: userID,
+        claims: { phone_number: phone, email }
+      }
+    } = event;
+
+    const result = await getUser({ userID, email, phone });
     context.done(null, result);
   } catch (err) {
     context.done(err, null);
