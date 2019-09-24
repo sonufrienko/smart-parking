@@ -42,6 +42,8 @@ export const me = `query Me {
   me {
     userID
     fullName
+    email
+    phone
     vehicles {
       make
       model

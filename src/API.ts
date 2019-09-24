@@ -179,6 +179,8 @@ export type MeQuery = {
     __typename: "User",
     userID: string | null,
     fullName: string | null,
+    email: string | null,
+    phone: string | null,
     vehicles:  Array< {
       __typename: "Vehicle",
       make: string | null,
