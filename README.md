@@ -1,7 +1,7 @@
 # Smart Parking
 Cloud and Web dashboard for real-time visualization of parking slots.
 
-[Dashboard Demo](https://master.d3vd5aw3f6hntg.amplifyapp.com/)
+[Dashboard Demo](https://d1h3e1ucojuxt4.cloudfront.net/)
 
 ![](public/images/scr1.png)
 
