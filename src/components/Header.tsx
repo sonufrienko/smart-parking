@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { withRouter, matchPath } from "react-router";
+import { Auth } from 'aws-amplify';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Toolbar, Typography, AppBar, IconButton, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { withRouter, matchPath } from "react-router";
 import { useStateValue } from '../state';
 import { ParkingListInterface } from '../types';
 
@@ -63,6 +64,13 @@ const Header = (props) => {
     setAnchorEl(null);
   }
 
+  function handleSignOut() {
+    handleClose();
+    Auth.signOut()
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+  }
+
   return (
     <AppBar position="sticky" color="primary">
         <Toolbar>
@@ -104,6 +112,7 @@ const Header = (props) => {
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
