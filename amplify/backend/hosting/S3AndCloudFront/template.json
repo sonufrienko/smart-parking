@@ -46,11 +46,6 @@
                         }
                     ]
                 },
-                "AccessControl": "Private",
-                "WebsiteConfiguration": {
-                    "IndexDocument": "index.html",
-                    "ErrorDocument": "index.html"
-                },
                 "CorsConfiguration": {
                     "CorsRules": [
                         {
@@ -67,6 +62,11 @@
                             "MaxAge": 3000
                         }
                     ]
+                },
+                "AccessControl": "Private",
+                "WebsiteConfiguration": {
+                    "IndexDocument": "index.html",
+                    "ErrorDocument": "index.html"
                 }
             }
         }
