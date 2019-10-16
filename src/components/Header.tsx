@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter, matchPath } from "react-router";
+import { Link } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Toolbar, Typography, AppBar, IconButton, Menu, MenuItem } from '@material-ui/core';
@@ -110,8 +111,7 @@ const Header = (props) => {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <Link style={{ textDecoration: 'inherit', color: 'inherit' }} to="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
             <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
           </Menu>
         </Toolbar>
