@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter, matchPath } from "react-router";
+import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -7,8 +7,6 @@ import { Toolbar, Typography, AppBar, IconButton, Menu, MenuItem } from '@materi
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { useStateValue } from '../state';
-import { ParkingListInterface } from '../types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,20 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const getTitle = ({ location, parkingList }: { location: { pathname: string }, parkingList: ParkingListInterface }) => {
-  const matchParkingDetails = matchPath(location.pathname, {
-    path: "/parking/:parkingID",
-    exact: true,
-    strict: false
-  });
-
-  if (matchParkingDetails) {
-    const { items } = parkingList;
-    const parking = items && items.length ?
-      items.find(item => item.parkingID === matchParkingDetails.params.parkingID) : null;
-    if (parking) {
-      return parking.title;
-    }
+const getTitle = ({ location }: { location: { pathname: string } }) => {
+  if (location.pathname.includes('/parking/')) {
+    return 'Parking Details'
   } else if (location.pathname === '/') {
     return 'Parking Map'
   }
@@ -44,12 +31,7 @@ const getTitle = ({ location, parkingList }: { location: { pathname: string }, p
 
 const Header = (props) => {
   const { location, history, onMenuClick } = props;
-  const [
-    {
-      parkingList
-    }
-  ] = useStateValue();
-  const title = getTitle({ location, parkingList });
+  const title = getTitle({ location });
   document.title = title;
   const showBackButton = location.pathname.startsWith('/parking/') && history.length;
 
