@@ -5,12 +5,12 @@ Cloud and Web dashboard for real-time visualization of parking slots.
 
 ![](public/images/scr1.png)
 
-![](public/images/scr2.png)
+![](public/images/scr3.png)
 
 
 ## Serverless Architecture
 
-![](aws-cloud-architecture.png)
+![](public/images/aws-cloud-architecture.png)
 
 Cloud
 - AWS Amplify
