@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import * as subscriptions from '../graphql/subscriptions';
-import { ParkingResponse } from '../types';
+import { ParkingResponse, StateInterface, ParkingListInterface, Parking } from '../types';
 import GroundMap from './GroundMap';
-import { Container, Paper } from '@material-ui/core';
+import { Container, Paper, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import ParkingMetrics from './ParkingMetrics';
 import Maps from '../maps';
+import { useStateValue } from '../state';
+import { getOpeningHoursFormatted } from '../utils/dateTime';
 
 const DetailsWrapper = styled.div`
   display: flex;
@@ -14,6 +16,10 @@ const DetailsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`;
+
+const GroundMapWrapper = styled.div`
+  margin-top: 30px;
 `;
 
 const updateSlotInArray = ({ updatedSlot, slots }) => slots.map(slot => 
@@ -41,10 +47,27 @@ const QUERY_SLOTS_ONLY = `query Parking($filter: ParkingFilterInput) {
   }
 }`;
 
+const findParking = ({ parkingList, parkingID }: { parkingList: ParkingListInterface, parkingID: string | null }): Parking | null => {
+  return (parkingID && 
+  parkingList && 
+  parkingList.items &&
+  parkingList.items.length &&
+  parkingList.items.find(item => item.parkingID === parkingID)) || null;
+}
+
+const getParkingAddress = ({ address }: Parking) => address && `${address.line1},\n${address.postalCode} ${address.city}`;
+
 const ParkingDetails = ({ match }) => {
   const [ slots, setSlots ] = useState<any[]>([]);
   const [ loading, setLoading ] = useState<boolean>(false);
+  const [{ parkingList }]: [ StateInterface, any ] = useStateValue();
+  
   const { params: { parkingID } } = match;
+  const parking = findParking({ parkingList, parkingID });
+
+  const parkingTitle = (parking && parking.title) || 'No title';
+  const parkingAddress = (parking && getParkingAddress(parking)) || 'No address';
+  const openingHoursFormatted = (parking && getOpeningHoursFormatted(parking.openingHours)) || '-';
 
   useEffect(() => {
     const fetchSlotData = async () => {
@@ -104,13 +127,21 @@ const ParkingDetails = ({ match }) => {
     <Container>
       <DetailsWrapper>
         <ParkingMetrics used={usedSlots} total={totalSlots} />
-        <Paper>
-          <GroundMap
-            slots={slots}
-            loading={loading}
-            imageUrl={imageUrl}
-            coordinatesOfSlots={coordinatesOfSlots}
-          />
+        <Paper style={{ padding: '30px 40px 40px 40px' }}>
+          <Typography variant="h5" component="h3">
+            {parkingTitle}
+          </Typography>
+          <Typography component="p">
+            {parkingAddress}<br />Opening Hours: {openingHoursFormatted}
+          </Typography>
+          <GroundMapWrapper>
+            <GroundMap
+              slots={slots}
+              loading={loading}
+              imageUrl={imageUrl}
+              coordinatesOfSlots={coordinatesOfSlots}
+            />
+          </GroundMapWrapper>
       </Paper>
       </DetailsWrapper>
     </Container>

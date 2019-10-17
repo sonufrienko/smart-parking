@@ -1,6 +1,22 @@
 import * as api from '../API';
 export * from '../API';
 
+type OpeningHour = {
+  __typename: "WorkDay",
+  open: {
+    __typename: "DayAndTime",
+    day: number,
+    time: string | null,
+  } | null,
+  close: {
+    __typename: "DayAndTime",
+    day: number,
+    time: string | null,
+  } | null,
+} | null;
+
+export type OpeningHours = OpeningHour[] | null;
+
 export type Parking = {
   __typename: "Parking",
   parkingID: string,
@@ -18,19 +34,7 @@ export type Parking = {
     latitude: number | null,
     longitude: number | null,
   },
-  openingHours:  Array< {
-    __typename: "WorkDay",
-    open:  {
-      __typename: "DayAndTime",
-      day: number,
-      time: string | null,
-    } | null,
-    close:  {
-      __typename: "DayAndTime",
-      day: number,
-      time: string | null,
-    } | null,
-  } | null > | null,
+  openingHours:  OpeningHours,
   rate: number | null,
   title: string,
   slots:  Array< {
@@ -50,30 +54,6 @@ export type ParkingListInterface = {
 export interface StateInterface {
   parkingList: ParkingListInterface
 }
-
-// export type InvoicesState = Map<string, InvoiceState>;
-
-// export interface InvoiceState {
-//   Id: string,
-//   UserID: string,
-//   SlotID: string,
-//   PlateNumber: string,
-//   DateFrom:string,
-//   DateTo: string,
-//   Price: number
-// }
-
-// export interface SlotsState {
-//   loading: boolean,
-//   items: SlotState[] | null
-// }
-
-// export interface SlotState {
-//   Id: string;
-//   Device?: number;
-//   SlotNumber?: string;
-//   SlotStatus?: number;
-// }
 
 export enum ActionType {
   PARKING_FETCH_START = 'PARKING_FETCH_START',
