@@ -5,8 +5,9 @@ Cloud and Web dashboard for real-time visualization of parking slots.
 
 ![](public/images/scr1.png)
 
-![](public/images/scr3.png)
+![](public/images/scr4.png)
 
+![](public/images/scr3.png)
 
 ## Serverless Architecture
 
