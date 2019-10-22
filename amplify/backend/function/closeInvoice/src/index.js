@@ -7,8 +7,8 @@ const prepareProperties = item => ({
   parkingID: item.parkingID,
   invoiceID: item.invoiceID,
   slotNumber: item.slotNumber,
-  dateFrom: item.dateFrom,
-  dateTo: item.dateTo,
+  dateFrom: String(item.dateFrom),
+  dateTo: String(item.dateTo),
   plateNumber: item.plateNumber,
   price: item.price,
   parking: {}
@@ -23,7 +23,7 @@ const updateInvoice = ({ userID, invoiceID, dateTo, price }) => {
     },
     UpdateExpression: 'set dateTo = :dateTo, price = :price',
     ExpressionAttributeValues: {
-      ':dateTo': dateTo,
+      ':dateTo': Number(dateTo),
       ':price': price
     },
     ReturnValues: 'ALL_NEW'

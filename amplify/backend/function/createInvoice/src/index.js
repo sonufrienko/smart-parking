@@ -8,8 +8,8 @@ const prepareProperties = item => ({
   parkingID: item.parkingID,
   invoiceID: item.invoiceID,
   slotNumber: item.slotNumber,
-  dateFrom: item.dateFrom,
-  dateTo: item.dateTo || '',
+  dateFrom: String(item.dateFrom),
+  dateTo: String(item.dateTo),
   plateNumber: item.plateNumber,
   price: 0,
   parking: {}
@@ -23,7 +23,7 @@ const createInvoice = async ({ userID, invoiceID, parkingID, slotNumber, dateFro
       invoiceID,
       parkingID,
       slotNumber,
-      dateFrom,
+      dateFrom: Number(dateFrom),
       plateNumber
     }
   };

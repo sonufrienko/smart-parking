@@ -12,8 +12,8 @@ const prepareInvoiceProperties = item => ({
   parkingID: item.parkingID,
   invoiceID: item.invoiceID,
   slotNumber: item.slotNumber,
-  dateFrom: item.dateFrom,
-  dateTo: item.dateTo,
+  dateFrom: String(item.dateFrom),
+  dateTo: String(item.dateTo),
   plateNumber: item.plateNumber,
   price: item.price,
   parking: {}
@@ -31,11 +31,13 @@ const getUserAndInvoices = userID => {
 
 async function getUser({ userID, email, phone }) {
   const { Items } = await getUserAndInvoices(userID);
-  const userRaw = Items.find(item => item.invoiceID === 'info');
-  const invoicesRaw = Items.filter(item => item.invoiceID !== 'info');
+  const invoices = Items
+    .filter(item => item.invoiceID !== 'info')
+    .sort((a, b) => a.dateFrom > b.dateFrom ? -1 : a.dateFrom < b.dateFrom ? 1 : 0)
+    .map(prepareInvoiceProperties);
 
+  const userRaw = Items.find(item => item.invoiceID === 'info');
   const user = prepareUserProperties(userRaw);
-  const invoices = invoicesRaw.map(prepareInvoiceProperties);
 
   return {
     ...user,
