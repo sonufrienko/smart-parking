@@ -12,8 +12,8 @@ const prepareInvoiceProperties = item => ({
   parkingID: item.parkingID,
   invoiceID: item.invoiceID,
   slotNumber: item.slotNumber,
-  dateFrom: item.dateFrom,
-  dateTo: item.dateTo,
+  dateFrom: String(item.dateFrom),
+  dateTo: String(item.dateTo),
   plateNumber: item.plateNumber,
   price: item.price,
   parking: {}
